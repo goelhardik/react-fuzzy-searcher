@@ -27,6 +27,7 @@ export interface ISearchDropdownProps extends WithStyles<typeof styles> {
     anchorEl: HTMLDivElement | null;
     handleDropdownClose(event: any): void;
     data: any;
+    maxDropdownHeight: string;
 }
 
 interface ISearchDropdownState {
@@ -52,7 +53,7 @@ class SearchDropdown extends React.Component<ISearchDropdownProps, ISearchDropdo
                     {...TransitionProps}
                     style={{
                         transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom',
-                        maxHeight: "500px",
+                        maxHeight: this.props.maxDropdownHeight,
                         overflowY: "auto"
                     }}
                 >
@@ -61,14 +62,10 @@ class SearchDropdown extends React.Component<ISearchDropdownProps, ISearchDropdo
                             <MenuList dense={false} style={{ padding: 0, borderWidth: "3px" }}>
                                 {this.props.data.map((d: any, idx: number) => {
                                     return <div>
-                                        <MenuItem
-                                            onClick={(event: any) => this.handleMenuItemClick(event)}
-                                            classes={{
-                                                root: classes.menuItem
-                                            }}
-                                            component={({ innerRef, ...props }) => <Link {...props} to={d.item.onClickLink} />}>
-                                            {d.item.onRender(d)}
-                                        </MenuItem>
+                                        {
+                                            d.item.onClick && this.renderMenuItemWithoutLink(d, idx)
+                                            || this.renderMenuItemWithLink(d, idx)
+                                        }
                                         <Divider />
                                     </div>;
                                 })}
@@ -80,7 +77,35 @@ class SearchDropdown extends React.Component<ISearchDropdownProps, ISearchDropdo
         </Popper>
     }
 
-    handleMenuItemClick = (event: any) => {
+    renderMenuItemWithoutLink = (d: any, idx: number) => {
+        const { classes } = this.props;
+
+        return <MenuItem
+            onClick={(event: any) => this.handleMenuItemClick(d, idx, event)}
+            classes={{
+                root: classes.menuItem
+            }}>
+            {d.item.onRender(d)}
+        </MenuItem>
+    }
+
+    renderMenuItemWithLink = (d: any, idx: number) => {
+        const { classes } = this.props;
+
+        return <MenuItem
+            onClick={(event: any) => this.handleMenuItemClick(d, idx, event)}
+            classes={{
+                root: classes.menuItem
+            }}
+            component={({ innerRef, ...props }) => <Link {...props} to={d.item.onClickLink} />}>
+            {d.item.onRender(d)}
+        </MenuItem>
+    }
+
+    handleMenuItemClick = (d: any, idx: number, event: any) => {
+        if (d.item.onClick) {
+            d.item.onClick();
+        }
         this.props.handleDropdownClose(event);
     }
 }

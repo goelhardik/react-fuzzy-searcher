@@ -18,11 +18,9 @@ const styles = (theme: Theme) => createStyles({
         '&:hover': {
             backgroundColor: fade(theme.palette.common.white, 0.25),
         },
-        // marginRight: theme.spacing.unit * 2,
         marginLeft: 0,
         width: '100%',
         [theme.breakpoints.up('sm')]: {
-            // marginLeft: theme.spacing.unit * 3,
             width: 'auto',
         },
     },
@@ -57,6 +55,8 @@ const styles = (theme: Theme) => createStyles({
 export interface ISearchBoxProps<T>  extends WithStyles<typeof styles> {
     fuseOptions: FuseOptions<T>;
     searchData: any;
+    maxDropdownHeight?: string;
+    placeholder?: string;
 }
 
 interface ISearchBoxState {
@@ -86,7 +86,7 @@ class SearchBox extends React.Component<ISearchBoxProps<any>, ISearchBoxState> {
                         <SearchIcon />
                     </div>
                     <InputBase
-                        placeholder="Search across the website (eg. 'Karma', 'Japa')…"
+                        placeholder={this.props.placeholder || ""}
                         classes={{
                             root: classes.inputRoot,
                             input: classes.inputInput,
@@ -102,7 +102,6 @@ class SearchBox extends React.Component<ISearchBoxProps<any>, ISearchBoxState> {
     }
 
     search = (event: any) => {
-        var showDropdown = false;
         // close dropdown if esc key pressed
         if (event.keyCode === 27) {
             this.setState({
@@ -111,7 +110,7 @@ class SearchBox extends React.Component<ISearchBoxProps<any>, ISearchBoxState> {
             return;
         }
         var searchKey = event.target.value;
-
+        var showDropdown = false;
         if (searchKey.length > 0) {
             this.performFuseSearch(searchKey);
             showDropdown = true;
@@ -137,7 +136,8 @@ class SearchBox extends React.Component<ISearchBoxProps<any>, ISearchBoxState> {
             anchorEl={this.anchorEl}
             data={this.state.searchResults}
             showDropdown={this.state.showDropdown}
-            handleDropdownClose={this.handleDropdownClose} />;
+            handleDropdownClose={this.handleDropdownClose} 
+            maxDropdownHeight={this.props.maxDropdownHeight || "500px"}/>;
     }
 
     handleDropdownClose = (event: any) => {

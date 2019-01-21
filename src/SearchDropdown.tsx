@@ -8,14 +8,14 @@ const styles = (theme: Theme) => createStyles({
     root: {
         width: "100%",
         zIndex: 2147483647,
-        overflowY: "scroll",
+        overflowY: "scroll"
     },
     dropdownContainer: {
         // boxShadow: "0 0 0 100vmax rgba(0,0,0,.3)"
     },
     grow: {
         maxHeight: "500px",
-        overflowY: "auto",
+        overflowY: "auto"
     },
     menuItem: {
         height: "auto"
@@ -25,7 +25,7 @@ const styles = (theme: Theme) => createStyles({
 export interface ISearchDropdownProps extends WithStyles<typeof styles> {
     showDropdown: boolean;
     anchorEl: HTMLDivElement | null;
-    handleDropdownClose: (event: any) => void;
+    handleDropdownClose(event: any) : void;
     data: any;
 }
 

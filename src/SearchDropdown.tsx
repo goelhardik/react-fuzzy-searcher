@@ -25,7 +25,7 @@ const styles = (theme: Theme) => createStyles({
 export interface ISearchDropdownProps extends WithStyles<typeof styles> {
     showDropdown: boolean;
     anchorEl: HTMLDivElement | null;
-    handleDropdownClose(event: any) : void;
+    handleDropdownClose(event: any): void;
     data: any;
 }
 
@@ -62,12 +62,12 @@ class SearchDropdown extends React.Component<ISearchDropdownProps, ISearchDropdo
                                 {this.props.data.map((d: any, idx: number) => {
                                     return <div>
                                         <MenuItem
-                                            onClick={(event) => this.handleMenuItemClick(event)}
+                                            onClick={(event: any) => this.handleMenuItemClick(event)}
                                             classes={{
                                                 root: classes.menuItem
-                                            }} >
+                                            }}
+                                            component={({ innerRef, ...props }) => <Link {...props} to={d.item.onClickLink} />}>
                                             {d.item.onRender(d)}
-                                            <Link to={d.item.onClickLink} />
                                         </MenuItem>
                                         <Divider />
                                     </div>;

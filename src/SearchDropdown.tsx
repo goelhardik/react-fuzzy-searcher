@@ -3,6 +3,7 @@ import { withStyles, Theme, createStyles, WithStyles } from "@material-ui/core/s
 import ClickAwayListener from "@material-ui/core/ClickAwayListener";
 import { Grow, Paper, Popper, MenuItem, MenuList, Divider } from "@material-ui/core";
 import { Link } from "react-router-dom";
+import SearchHelper from "./SearchResult";
 
 const styles = (theme: Theme) => createStyles({
     root: {
@@ -28,6 +29,7 @@ export interface ISearchDropdownProps extends WithStyles<typeof styles> {
     handleDropdownClose(event: any): void;
     data: any;
     maxDropdownHeight: string;
+    showAvatar: boolean;
 }
 
 interface ISearchDropdownState {
@@ -77,29 +79,38 @@ class SearchDropdown extends React.Component<ISearchDropdownProps, ISearchDropdo
         </Popper>
     }
 
-    renderMenuItemWithoutLink = (d: any, idx: number) => {
+    renderMenuItemWithoutLink = (fuseResult: any, idx: number) => {
         const { classes } = this.props;
 
         return <MenuItem
-            onClick={(event: any) => this.handleMenuItemClick(d, idx, event)}
+            onClick={(event: any) => this.handleMenuItemClick(fuseResult, idx, event)}
             classes={{
                 root: classes.menuItem
             }}>
-            {d.item.onRender(d)}
+            {this.renderSearchResult(fuseResult)}
         </MenuItem>
     }
 
-    renderMenuItemWithLink = (d: any, idx: number) => {
+    renderMenuItemWithLink = (fuseResult: any, idx: number) => {
         const { classes } = this.props;
 
         return <MenuItem
-            onClick={(event: any) => this.handleMenuItemClick(d, idx, event)}
+            onClick={(event: any) => this.handleMenuItemClick(fuseResult, idx, event)}
             classes={{
                 root: classes.menuItem
             }}
-            component={({ innerRef, ...props }) => <Link {...props} to={d.item.onClickLink} />}>
-            {d.item.onRender(d)}
+            component={({ innerRef, ...props }) => <Link {...props} to={fuseResult.item.onClickLink} />}>
+            {this.renderSearchResult(fuseResult)}
         </MenuItem>
+    }
+
+    renderSearchResult(fuseResult: any) {
+        if (fuseResult.item.onRender) {
+            return fuseResult.item.onRender(fuseResult);
+        }
+        return <SearchHelper
+            showAvatar={this.props.showAvatar}
+            fuseResult={fuseResult} />;
     }
 
     handleMenuItemClick = (d: any, idx: number, event: any) => {

@@ -55,6 +55,7 @@ const styles = (theme: Theme) => createStyles({
 export interface ISearchBoxProps<T>  extends WithStyles<typeof styles> {
     fuseOptions: FuseOptions<T>;
     searchData: any;
+    showAvatar: boolean;
     maxDropdownHeight?: string;
     placeholder?: string;
 }
@@ -137,7 +138,8 @@ class SearchBox extends React.Component<ISearchBoxProps<any>, ISearchBoxState> {
             data={this.state.searchResults}
             showDropdown={this.state.showDropdown}
             handleDropdownClose={this.handleDropdownClose} 
-            maxDropdownHeight={this.props.maxDropdownHeight || "500px"}/>;
+            maxDropdownHeight={this.props.maxDropdownHeight || "500px"}
+            showAvatar={this.props.showAvatar} />;
     }
 
     handleDropdownClose = (event: any) => {

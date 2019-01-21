@@ -28,6 +28,7 @@
     "devDependencies": {
         "@types/react": "^16.7.20",
         "@types/react-dom": "^16.0.11",
+        "@types/react-router-dom": "^4.3.1",
         "awesome-typescript-loader": "^5.2.1",
         "bfj": "^6.1.1",
         "chalk": "^2.4.2",
@@ -52,8 +53,12 @@
         "webpack-hot-middleware": "^2.24.3"
     },
     "dependencies": {
+        "@material-ui/core": "^3.9.0",
+        "@material-ui/icons": "^3.0.2",
+        "fuse.js": "^3.3.0",
         "react": "^16.7.0",
-        "react-dom": "^16.7.0"
+        "react-dom": "^16.7.0",
+        "react-router-dom": "^4.3.1"
     },
     "typings": "lib/index.d.ts",
     "main": "lib/react-fuzzy-searcher.js",

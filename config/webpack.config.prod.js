@@ -75,6 +75,10 @@ const baseConfig = {
         "@material-ui/core": {
             commonjs: "@material-ui/core",
             commonjs2: "@material-ui/core"
+        },
+        "react-router-dom": {
+            commonjs: "react-router-dom",
+            commonjs2: "react-router-dom"
         }
     },
     // Add resolve for `tsx` and `ts` files, otherwise Webpack would

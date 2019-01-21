@@ -1,0 +1,66 @@
+{
+    "name": "react-fuzzy-searcher",
+    "version": "1.0.0",
+    "description": "React component for fuzzy searching using fuse.js for the search",
+    "scripts": {
+        "build": "node scripts/build.js",
+        "bump": "npm version patch",
+        "test": "node scripts/test.js --env=jsdom",
+        "test-ci": "jest",
+        "lint": "tslint -p tsconfig.json -t stylish"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/goelhardik/react-fuzzy-searcher.git"
+    },
+    "keywords": [
+        "react",
+        "fuzzy",
+        "search",
+        "fusejs"
+    ],
+    "author": "Hardik Goel",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/goelhardik/react-fuzzy-searcher/issues"
+    },
+    "homepage": "https://github.com/goelhardik/react-fuzzy-searcher#readme",
+    "devDependencies": {
+        "@types/react": "^16.7.20",
+        "@types/react-dom": "^16.0.11",
+        "awesome-typescript-loader": "^5.2.1",
+        "bfj": "^6.1.1",
+        "chalk": "^2.4.2",
+        "css-loader": "^2.1.0",
+        "fs": "0.0.1-security",
+        "fs-extra": "^7.0.1",
+        "path": "^0.12.7",
+        "postcss-flexbugs-fixes": "^4.1.0",
+        "postcss-loader": "^3.0.0",
+        "postcss-preset-env": "^6.5.0",
+        "react-dev-utils": "^7.0.1",
+        "react-hot-loader": "^4.6.3",
+        "sass-loader": "^7.1.0",
+        "source-map-loader": "^0.2.4",
+        "style-loader": "^0.23.1",
+        "ts-loader": "^5.3.3",
+        "typescript": "^3.2.4",
+        "webpack": "^4.29.0",
+        "webpack-cli": "^3.2.1",
+        "webpack-dev-middleware": "^3.5.1",
+        "webpack-dev-server": "^3.1.14",
+        "webpack-hot-middleware": "^2.24.3"
+    },
+    "dependencies": {
+        "react": "^16.7.0",
+        "react-dom": "^16.7.0"
+    },
+    "typings": "lib/index.d.ts",
+    "main": "lib/react-fuzzy-searcher.js",
+    "browserslist": [
+        ">0.2%",
+        "not dead",
+        "not ie < 11",
+        "not op_mini all"
+    ]
+}

@@ -1,6 +1,7 @@
 import * as React from "react";
 import { withStyles, Theme, createStyles, WithStyles } from '@material-ui/core/styles';
 import { Typography, TextField } from "@material-ui/core";
+import SearchBox from "../src/SearchBox";
 
 const styles = (theme: Theme) => createStyles({
     root: {
@@ -33,10 +34,17 @@ const styles = (theme: Theme) => createStyles({
         width: "100%",
         display: "grid",
         gridTemplateColumns: "1fr 2fr",
-        gridColumnGap: "30px"
+        gridColumnGap: "30px",
+        marginTop: "20px"
     },
     textField: {
-        marginLeft: "30px"
+        marginLeft: "30px",
+        marginTop: "0"
+    },
+    searchBox: {
+        width: "75%",
+        justifySelf: "end",
+        marginRight: "30px"
     }
 });
 
@@ -86,19 +94,60 @@ class SearchBoxDemo extends React.Component<ISearchBoxDemoProps, ISearchBoxDemoS
                     variant="outlined"
                     rows={10}
                 />
+                <div className={classes.searchBox}>
+                    {this.renderSearchBox()}
+                </div>
             </div>
         </div>;
     }
 
+    renderSearchBox = () => {
+        var fuseOptions = {
+            keys: getSearchKeys(),
+            includeMatches: true,
+            includeScore: true,
+            threshold: 0.5
+        };
+
+        return <SearchBox
+            showAvatar={false}
+            fuseOptions={fuseOptions}
+            searchData={[{
+                name: "SDF",
+                title: "SD",
+                onClick: () => console.log("SDF CLICKED")
+            }, {
+                name: "WER",
+                title: "WER",
+                onClick: () => console.log("WER CLICKED")
+            }]}
+            placeholder="HELLLO"
+        />;
+    }
+
     handleSearchableDataChange = (event: any) => {
-        var value = event.target.value;
-        var obj = JSON.parse(value);
-        var pretty = JSON.stringify(obj, undefined, 4);
+        // var value = event.target.value;
+        // var obj = JSON.parse(value);
+        // var pretty = JSON.stringify(obj, undefined, 4);
 
         this.setState({
-            searchableData: pretty
+            searchableData: event.target.value
         })
     }
+}
+
+
+export function getSearchKeys() {
+    return [
+        {
+            name: 'name',
+            weight: 0.5
+        },
+        {
+            name: 'title',
+            weight: 0.3
+        }
+    ];
 }
 
 export default (withStyles(styles)(SearchBoxDemo));

@@ -1,11 +1,8 @@
 {
     "extends": "./tsconfig.json",
-    "outDir": "build",
     "compilerOptions": {
-        "baseUrl": "./docs",
-        "rootDir": "./docs"
-    },
-    "include": [
-        "docs"
-    ]
+        "baseUrl": "./",
+        "rootDirs": ["./src", "./docs"],
+        "outDir": "docs/build"
+    }
 }

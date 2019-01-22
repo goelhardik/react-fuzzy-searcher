@@ -56,6 +56,8 @@ const baseConfig = {
         path: paths.docsBuild,
         filename: "bundle.js",
         umdNamedDefine: true,
+        libraryTarget: "umd",
+        umdNamedDefine: true,
         publicPath: 'docs/build/'
     },
     // Add resolve for `tsx` and `ts` files, otherwise Webpack would

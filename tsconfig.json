@@ -1,7 +1,6 @@
 {
     "compilerOptions": {
         "baseUrl": "./",
-        "rootDir": "./src",
         "outDir": "lib",
         "target": "es5",
         "lib": [

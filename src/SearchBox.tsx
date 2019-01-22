@@ -9,11 +9,12 @@ import SearchDropdown from './SearchDropdown';
 
 const styles = (theme: Theme) => createStyles({
     root: {
-        width: '100%'
+        width: '100%',
     },
     search: {
         position: 'relative',
         borderRadius: theme.shape.borderRadius,
+        border: "1px solid #828785",
         backgroundColor: fade(theme.palette.common.white, 0.15),
         '&:hover': {
             backgroundColor: fade(theme.palette.common.white, 0.25),
@@ -25,13 +26,14 @@ const styles = (theme: Theme) => createStyles({
         },
     },
     searchIcon: {
-        width: theme.spacing.unit * 9,
+        width: theme.spacing.unit * 5,
         height: '100%',
         position: 'absolute',
         pointerEvents: 'none',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
+        color: "#828785"
     },
     inputRoot: {
         color: 'inherit',
@@ -41,7 +43,7 @@ const styles = (theme: Theme) => createStyles({
         paddingTop: theme.spacing.unit,
         paddingRight: theme.spacing.unit,
         paddingBottom: theme.spacing.unit,
-        paddingLeft: theme.spacing.unit * 10,
+        paddingLeft: theme.spacing.unit * 5,
         transition: theme.transitions.create('width'),
         width: '100%',
     },
@@ -127,6 +129,7 @@ class SearchBox extends React.Component<ISearchBoxProps<any>, ISearchBoxState> {
         options.includeScore = true;
         var fuse = new Fuse(this.props.searchData, options);
         var result = fuse.search(searchKey);
+        console.log("FUSE RESULTS", searchKey, result);
         this.setState({
             searchResults: result
         });

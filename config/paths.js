@@ -24,6 +24,6 @@ module.exports = {
   docsPath: resolveApp("./docs"),
   docsBuild: resolveApp("docs/build"),
   docsIndexJs: resolveApp("docs/index.ts"),
-  docsSrc: resolveApp("docs"),
+  docsSrc: resolveApp("./"),
   docsTsProdConfig: resolveApp("tsconfig.docs.json")
 };

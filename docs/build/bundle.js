@@ -7622,4 +7622,4 @@ exports.default = _default;
 /***/ })
 /******/ ]);
 });
-//# sourceMappingURL=react-fuzzy-searcher-docs.js.map
+//# sourceMappingURL=bundle.js.map

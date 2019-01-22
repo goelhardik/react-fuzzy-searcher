@@ -55,7 +55,7 @@ const baseConfig = {
     output: {
         path: paths.docsBuild,
         library: "ReactFuzzySearcherDocs",
-        filename: "[name].js",
+        filename: "bundle.js",
         libraryTarget: "umd",
         umdNamedDefine: true
     },
@@ -195,13 +195,7 @@ const baseConfig = {
 module.exports = [
     Object.assign({}, baseConfig, {
         entry: {
-            "react-fuzzy-searcher-docs.min": [paths.docsIndexJs]
-        },
-    }),
-
-    Object.assign({}, baseConfig, {
-        entry: {
-            "react-fuzzy-searcher-docs": [paths.docsIndexJs],
+            "docs/index.ts": [paths.docsIndexJs],
         },
         optimization: {
             minimize: false

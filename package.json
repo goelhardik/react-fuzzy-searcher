@@ -8,7 +8,8 @@
         "test": "node scripts/test.js --env=jsdom",
         "test-ci": "jest",
         "lint": "tslint -p tsconfig.json -t stylish",
-        "docs-build": "node scripts/build-docs.js"
+        "docs-build": "node scripts/build-docs.js",
+        "start:dev": "webpack-dev-server --config config/webpack.config.docs.prod.js"
     },
     "repository": {
         "type": "git",

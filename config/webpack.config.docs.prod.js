@@ -55,7 +55,8 @@ const baseConfig = {
     output: {
         path: paths.docsBuild,
         filename: "bundle.js",
-        umdNamedDefine: true
+        umdNamedDefine: true,
+        publicPath: 'docs/build/'
     },
     // Add resolve for `tsx` and `ts` files, otherwise Webpack would
     // only look for common JavaScript file extension (.js)
@@ -170,9 +171,7 @@ const baseConfig = {
 
 module.exports = [
     Object.assign({}, baseConfig, {
-        entry: {
-            "docs/index.ts": [paths.docsIndexJs],
-        },
+        entry: [paths.docsIndexJs],
         optimization: {
             minimize: false
         }

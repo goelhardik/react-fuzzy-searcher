@@ -2406,7 +2406,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var React = __webpack_require__(7);
 var ReactDOM = __webpack_require__(45);
 var SearchBoxDemo_1 = __webpack_require__(46);
-ReactDOM.render(React.createElement(SearchBoxDemo_1.default), document.getElementById('root'));
+console.log("INDE JS CALLED");
+console.log(document);
+console.log(document.getElementById("root"));
+ReactDOM.render(React.createElement(SearchBoxDemo_1.default), document.getElementById("root"));
 
 
 /***/ }),

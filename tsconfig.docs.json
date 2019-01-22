@@ -1,5 +1,6 @@
 {
     "extends": "./tsconfig.json",
+    "outDir": "build",
     "compilerOptions": {
         "baseUrl": "./docs",
         "rootDir": "./docs"

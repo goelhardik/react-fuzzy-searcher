@@ -22,7 +22,7 @@ module.exports = {
   appTsProdConfig: resolveApp("tsconfig.prod.json"),
   appTsLint: resolveApp("tslint.json"),
   docsPath: resolveApp("./docs"),
-  docsBuild: resolveApp("docs/lib"),
+  docsBuild: resolveApp("docs/build"),
   docsIndexJs: resolveApp("docs/index.ts"),
   docsSrc: resolveApp("docs"),
   docsTsProdConfig: resolveApp("tsconfig.docs.json")

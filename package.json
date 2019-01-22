@@ -7,7 +7,8 @@
         "bump": "npm version patch",
         "test": "node scripts/test.js --env=jsdom",
         "test-ci": "jest",
-        "lint": "tslint -p tsconfig.json -t stylish"
+        "lint": "tslint -p tsconfig.json -t stylish",
+        "docs-build": "node scripts/build-docs.js"
     },
     "repository": {
         "type": "git",

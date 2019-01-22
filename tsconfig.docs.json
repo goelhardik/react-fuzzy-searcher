@@ -1,0 +1,10 @@
+{
+    "extends": "./tsconfig.json",
+    "compilerOptions": {
+        "baseUrl": "./docs",
+        "rootDir": "./docs"
+    },
+    "include": [
+        "docs"
+    ]
+}

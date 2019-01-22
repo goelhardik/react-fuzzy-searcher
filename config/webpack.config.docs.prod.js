@@ -54,32 +54,8 @@ const baseConfig = {
     bail: true,
     output: {
         path: paths.docsBuild,
-        library: "ReactFuzzySearcherDocs",
         filename: "bundle.js",
-        libraryTarget: "commonjs2",
         umdNamedDefine: true
-    },
-    externals: {
-        "react": {
-            commonjs: "react",
-            commonjs2: "react",
-            amd: "react",
-            root: "react"
-        },
-        "react-dom": {
-            commonjs: "react-dom",
-            commonjs2: "react-dom",
-            amd: "ReactDOM",
-            root: "ReactDOM"
-        },
-        "@material-ui/core": {
-            commonjs: "@material-ui/core",
-            commonjs2: "@material-ui/core"
-        },
-        "react-router-dom": {
-            commonjs: "react-router-dom",
-            commonjs2: "react-router-dom"
-        }
     },
     // Add resolve for `tsx` and `ts` files, otherwise Webpack would
     // only look for common JavaScript file extension (.js)

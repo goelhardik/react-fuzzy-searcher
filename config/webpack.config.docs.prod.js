@@ -56,7 +56,7 @@ const baseConfig = {
         path: paths.docsBuild,
         library: "ReactFuzzySearcherDocs",
         filename: "bundle.js",
-        libraryTarget: "umd",
+        libraryTarget: "commonjs2",
         umdNamedDefine: true
     },
     externals: {

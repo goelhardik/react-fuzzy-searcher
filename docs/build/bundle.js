@@ -1,14 +1,5 @@
-(function webpackUniversalModuleDefinition(root, factory) {
-	if(typeof exports === 'object' && typeof module === 'object')
-		module.exports = factory(require("react"), require("react-dom"));
-	else if(typeof define === 'function' && define.amd)
-		define("ReactFuzzySearcherDocs", ["react", "ReactDOM"], factory);
-	else if(typeof exports === 'object')
-		exports["ReactFuzzySearcherDocs"] = factory(require("react"), require("react-dom"));
-	else
-		root["ReactFuzzySearcherDocs"] = factory(root["react"], root["ReactDOM"]);
-})(window, function(__WEBPACK_EXTERNAL_MODULE__7__, __WEBPACK_EXTERNAL_MODULE__45__) {
-return /******/ (function(modules) { // webpackBootstrap
+module.exports =
+/******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
 /******/
@@ -454,7 +445,7 @@ exports['default'] = StyleRule;
 /* 7 */
 /***/ (function(module, exports) {
 
-module.exports = __WEBPACK_EXTERNAL_MODULE__7__;
+module.exports = require("react");
 
 /***/ }),
 /* 8 */
@@ -2416,7 +2407,7 @@ ReactDOM.render(React.createElement(SearchBoxDemo_1.default), document.getElemen
 /* 45 */
 /***/ (function(module, exports) {
 
-module.exports = __WEBPACK_EXTERNAL_MODULE__45__;
+module.exports = require("react-dom");
 
 /***/ }),
 /* 46 */
@@ -7621,5 +7612,4 @@ exports.default = _default;
 
 /***/ })
 /******/ ]);
-});
 //# sourceMappingURL=bundle.js.map

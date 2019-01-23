@@ -2,6 +2,7 @@ import * as React from "react";
 import { Avatar, Typography } from "@material-ui/core";
 import { withStyles, Theme, createStyles, WithStyles } from "@material-ui/core/styles";
 var deepValue = require("./Util/deepValue");
+var colors = require("./Common.scss");
 
 const styles = (theme: Theme) => createStyles({
     root: {
@@ -54,14 +55,14 @@ interface ISearchResultState {
 
 class SearchResult extends React.Component<ISearchResultProps, ISearchResultState> {
 
-    render = () => {
+    render() {
         const { classes, searchResultOptions } = this.props;
 
-        return <div className={classes.root}>
+        return (<div className={classes.root}>
             {this.props.showAvatar && <Avatar src={this.getImageUrl(searchResultOptions)} className={classes.avatar} />}
             <div className={classes.resultText}>
                 <Typography component="p" className={classes.resultTitle}>
-                {this.getSearchResultTitle(searchResultOptions)}
+                    {this.getSearchResultTitle(searchResultOptions)}
                 </Typography>
                 {this.props.fuseResult.matches.slice(0, this.props.takeTopMatches || 3)
                     .map((match: any, idx: number) => this.renderMatchLine(match))}
@@ -70,7 +71,7 @@ class SearchResult extends React.Component<ISearchResultProps, ISearchResultStat
                 {this.props.fuseResult.item.resultType &&
                     <Typography component="p">{this.props.fuseResult.item.resultType}</Typography>}
             </div>
-        </div>;
+        </div>);
     }
 
     getImageUrl = (searchResultOptions: ISearchResultOptions | undefined) => {
@@ -98,17 +99,17 @@ class SearchResult extends React.Component<ISearchResultProps, ISearchResultStat
         }
         const { classes, searchResultOptions } = this.props;
 
-        var key = "";
+        let key = "";
         if (searchResultOptions && searchResultOptions.searchResultMatchKeys) {
             key = searchResultOptions.searchResultMatchKeys[match.key];
         }
-        var value = match.value;
-        var spans = [<span>{`${key} : ...${value.substring(0, match.indices[0][0])}`}</span>];
-        for (var i = 0; i < match.indices.length; i++) {
-            var curInd = match.indices[i];
-            var nextInd = match.indices[i + 1];
-            var matchedVal = <span style={{ backgroundColor: "#fff2a8" }}>{value.substring(curInd[0], curInd[1] + 1)}</span>;
-            var remaining = <span>{value.substring(curInd[1] + 1, nextInd && nextInd[0] || value.length)}</span>
+        const value = match.value;
+        const spans = [<span key={"match-index-0"} >{`${key} : ...${value.substring(0, match.indices[0][0])}`}</span>];
+        for (let i = 0; i < match.indices.length; i++) {
+            const curInd = match.indices[i];
+            const nextInd = match.indices[i + 1];
+            const matchedVal = <span style={{ backgroundColor: colors.matchHighlightColor }} key={`match-index-highlight-${i}`}>{value.substring(curInd[0], curInd[1] + 1)}</span>;
+            const remaining = <span key={`match-index-${i}`}>{value.substring(curInd[1] + 1, nextInd && nextInd[0] || value.length)}</span>;
             spans.push(matchedVal);
             spans.push(remaining);
         }

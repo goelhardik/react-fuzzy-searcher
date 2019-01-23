@@ -8,8 +8,7 @@ import SearchResult, { ISearchResultOptions } from "./SearchResult";
 const styles = (theme: Theme) => createStyles({
     root: {
         width: "100%",
-        zIndex: 2147483647,
-        overflowY: "scroll"
+        zIndex: 2147483647
     },
     dropdownContainer: {
         marginTop: "10px",
@@ -44,7 +43,7 @@ interface ISearchDropdownState {
 
 class SearchDropdown extends React.Component<ISearchDropdownProps, ISearchDropdownState> {
 
-    render = () => {
+    render() {
         const { classes } = this.props;
 
         return <Popper

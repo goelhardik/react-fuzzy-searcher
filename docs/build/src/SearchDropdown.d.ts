@@ -1,6 +1,7 @@
 import * as React from "react";
 import { Theme, WithStyles } from "@material-ui/core/styles";
-declare const styles: (theme: Theme) => Record<"root" | "dropdownContainer" | "grow" | "menuItem", import("@material-ui/core/styles/withStyles").CSSProperties>;
+import { ISearchResultOptions } from "./SearchResult";
+declare const styles: (theme: Theme) => Record<"root" | "dropdownContainer" | "grow" | "menuItem" | "noResultsText", import("@material-ui/core/styles/withStyles").CSSProperties>;
 export interface ISearchDropdownProps extends WithStyles<typeof styles> {
     showDropdown: boolean;
     anchorEl: HTMLDivElement | null;
@@ -8,6 +9,7 @@ export interface ISearchDropdownProps extends WithStyles<typeof styles> {
     data: any;
     maxDropdownHeight: string;
     showAvatar: boolean;
+    searchResultOptions?: ISearchResultOptions;
 }
-declare const _default: React.ComponentType<Pick<ISearchDropdownProps, "data" | "showDropdown" | "showAvatar" | "maxDropdownHeight" | "anchorEl" | "handleDropdownClose"> & import("@material-ui/core").StyledComponentProps<"root" | "dropdownContainer" | "grow" | "menuItem">>;
+declare const _default: React.ComponentType<Pick<ISearchDropdownProps, "data" | "showDropdown" | "showAvatar" | "maxDropdownHeight" | "searchResultOptions" | "anchorEl" | "handleDropdownClose"> & import("@material-ui/core").StyledComponentProps<"root" | "dropdownContainer" | "grow" | "menuItem" | "noResultsText">>;
 export default _default;

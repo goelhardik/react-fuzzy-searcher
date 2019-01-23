@@ -1,6 +1,7 @@
 import * as React from "react";
 import { Avatar, Typography } from "@material-ui/core";
 import { withStyles, Theme, createStyles, WithStyles } from "@material-ui/core/styles";
+var deepValue = require("./Util/deepValue");
 
 const styles = (theme: Theme) => createStyles({
     root: {
@@ -10,7 +11,8 @@ const styles = (theme: Theme) => createStyles({
         width: "100%"
     },
     avatar: {
-        justifySelf: "start"
+        justifySelf: "start",
+        marginRight: "10px"
     },
     resultText: {
         overflow: "hidden"
@@ -33,10 +35,17 @@ const styles = (theme: Theme) => createStyles({
     }
 });
 
+export interface ISearchResultOptions {
+    searchResultTitleKey?: string;
+    searchResultMatchKeys?: {};
+    searchResultImageUrl?: string;
+}
+
 export interface ISearchResultProps extends WithStyles<typeof styles> {
     showAvatar: boolean;
     fuseResult: any;
     takeTopMatches?: number;
+    searchResultOptions?: ISearchResultOptions;
 }
 
 interface ISearchResultState {
@@ -46,13 +55,13 @@ interface ISearchResultState {
 class SearchResult extends React.Component<ISearchResultProps, ISearchResultState> {
 
     render = () => {
-        const { classes } = this.props;
+        const { classes, searchResultOptions } = this.props;
 
         return <div className={classes.root}>
-            <Avatar src={this.props.fuseResult.item.imageUrl} className={classes.avatar} />
+            {this.props.showAvatar && <Avatar src={this.getImageUrl(searchResultOptions)} className={classes.avatar} />}
             <div className={classes.resultText}>
                 <Typography component="p" className={classes.resultTitle}>
-                    {this.props.fuseResult.item.title}
+                {this.getSearchResultTitle(searchResultOptions)}
                 </Typography>
                 {this.props.fuseResult.matches.slice(0, this.props.takeTopMatches || 3)
                     .map((match: any, idx: number) => this.renderMatchLine(match))}
@@ -64,15 +73,37 @@ class SearchResult extends React.Component<ISearchResultProps, ISearchResultStat
         </div>;
     }
 
+    getImageUrl = (searchResultOptions: ISearchResultOptions | undefined) => {
+        var imageUrl = this.props.fuseResult.item.imageUrl;
+        if (searchResultOptions && searchResultOptions.searchResultImageUrl) {
+            imageUrl = deepValue(this.props.fuseResult.item, searchResultOptions.searchResultImageUrl);
+        }
+
+        return imageUrl;
+    }
+
+    getSearchResultTitle = (searchResultOptions: ISearchResultOptions | undefined) => {
+        var title = this.props.fuseResult.item.title;
+        if (searchResultOptions && searchResultOptions.searchResultTitleKey) {
+            title = deepValue(this.props.fuseResult.item, searchResultOptions.searchResultTitleKey);
+        }
+
+        return title;
+    }
+
 
     renderMatchLine = (match: any) => {
         if (!match) {
             return null;
         }
-        const { classes } = this.props;
+        const { classes, searchResultOptions } = this.props;
 
+        var key = "";
+        if (searchResultOptions && searchResultOptions.searchResultMatchKeys) {
+            key = searchResultOptions.searchResultMatchKeys[match.key];
+        }
         var value = match.value;
-        var spans = [<span>{`...${value.substring(0, match.indices[0][0])}`}</span>];
+        var spans = [<span>{`${key} : ...${value.substring(0, match.indices[0][0])}`}</span>];
         for (var i = 0; i < match.indices.length; i++) {
             var curInd = match.indices[i];
             var nextInd = match.indices[i + 1];

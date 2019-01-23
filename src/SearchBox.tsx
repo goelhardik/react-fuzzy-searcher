@@ -6,6 +6,7 @@ import SearchIcon from '@material-ui/icons/Search';
 import { FuseOptions } from "fuse.js";
 import * as Fuse from "fuse.js";
 import SearchDropdown from './SearchDropdown';
+import { ISearchResultOptions } from './SearchResult';
 
 const styles = (theme: Theme) => createStyles({
     root: {
@@ -60,6 +61,7 @@ export interface ISearchBoxProps<T>  extends WithStyles<typeof styles> {
     showAvatar: boolean;
     maxDropdownHeight?: string;
     placeholder?: string;
+    searchResultOptions?: ISearchResultOptions;
 }
 
 interface ISearchBoxState {
@@ -83,8 +85,8 @@ class SearchBox extends React.Component<ISearchBoxProps<any>, ISearchBoxState> {
         const { classes } = this.props;
 
         return (
-            <div className={classes.root}>
-                <div className={classes.search} ref={node => this.anchorEl = node}>
+            <div className={classes.root}  ref={node => this.anchorEl = node}>
+                <div className={classes.search}>
                     <div className={classes.searchIcon}>
                         <SearchIcon />
                     </div>
@@ -142,7 +144,8 @@ class SearchBox extends React.Component<ISearchBoxProps<any>, ISearchBoxState> {
             showDropdown={this.state.showDropdown}
             handleDropdownClose={this.handleDropdownClose} 
             maxDropdownHeight={this.props.maxDropdownHeight || "500px"}
-            showAvatar={this.props.showAvatar} />;
+            showAvatar={this.props.showAvatar} 
+            searchResultOptions={this.props.searchResultOptions} />;
     }
 
     handleDropdownClose = (event: any) => {

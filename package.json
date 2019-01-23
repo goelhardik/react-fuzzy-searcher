@@ -28,6 +28,7 @@
     },
     "homepage": "https://github.com/goelhardik/react-fuzzy-searcher#readme",
     "devDependencies": {
+        "@types/node": "^10.12.18",
         "@types/react": "^16.7.20",
         "@types/react-dom": "^16.0.11",
         "@types/react-router-dom": "^4.3.1",

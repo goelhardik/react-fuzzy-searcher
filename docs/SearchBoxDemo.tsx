@@ -3,6 +3,8 @@ import { withStyles, Theme, createStyles, WithStyles } from '@material-ui/core/s
 import { Typography, TextField } from "@material-ui/core";
 import SearchBox from "../src/SearchBox";
 
+var sampleData = require("./data/sampleData.json");
+
 const styles = (theme: Theme) => createStyles({
     root: {
         width: '100%',
@@ -33,7 +35,7 @@ const styles = (theme: Theme) => createStyles({
     content: {
         width: "100%",
         display: "grid",
-        gridTemplateColumns: "1fr 2fr",
+        gridTemplateColumns: "1fr",
         gridColumnGap: "30px",
         marginTop: "20px"
     },
@@ -43,7 +45,7 @@ const styles = (theme: Theme) => createStyles({
     },
     searchBox: {
         width: "75%",
-        justifySelf: "end",
+        justifySelf: "center",
         marginRight: "30px"
     }
 });
@@ -60,7 +62,7 @@ class SearchBoxDemo extends React.Component<ISearchBoxDemoProps, ISearchBoxDemoS
     constructor(props: ISearchBoxDemoProps) {
         super(props);
         this.state = {
-            searchableData: ""
+            searchableData: JSON.stringify(sampleData)
         }
     }
 
@@ -83,7 +85,7 @@ class SearchBoxDemo extends React.Component<ISearchBoxDemoProps, ISearchBoxDemoS
             </div>
 
             <div className={classes.content}>
-                <TextField
+                {false && <TextField
                     id="input-list"
                     label="Input list to search on"
                     multiline
@@ -93,7 +95,7 @@ class SearchBoxDemo extends React.Component<ISearchBoxDemoProps, ISearchBoxDemoS
                     margin="normal"
                     variant="outlined"
                     rows={10}
-                />
+                />}
                 <div className={classes.searchBox}>
                     {this.renderSearchBox()}
                 </div>
@@ -108,20 +110,26 @@ class SearchBoxDemo extends React.Component<ISearchBoxDemoProps, ISearchBoxDemoS
             includeScore: true,
             threshold: 0.5
         };
+        sampleData = sampleData.map((d: any, idx: number) => {
+            d.onClick = () => console.log("Clicked");
+            return d;
+        });
 
         return <SearchBox
-            showAvatar={false}
+            showAvatar={true}
             fuseOptions={fuseOptions}
-            searchData={[{
-                name: "SDF",
-                title: "SD",
-                onClick: () => console.log("SDF CLICKED")
-            }, {
-                name: "WER",
-                title: "WER",
-                onClick: () => console.log("WER CLICKED")
-            }]}
-            placeholder="HELLLO"
+            searchData={sampleData}
+            // placeholder="Type something eg. 'football', 'ellen'.."
+            placeholder="Search amongst the 50 most popular YouTube videos eg. 'football', 'ellen'.."
+            searchResultOptions={{
+                searchResultTitleKey: "snippet.title",
+                searchResultImageUrl: "snippet.thumbnails.default.url",
+                searchResultMatchKeys: {
+                    "snippet.channelTitle": "Channel Title",
+                    "snippet.tags": "Tags",
+                    "snippet.description": "Description"
+                }
+            }}
         />;
     }
 
@@ -140,12 +148,16 @@ class SearchBoxDemo extends React.Component<ISearchBoxDemoProps, ISearchBoxDemoS
 export function getSearchKeys() {
     return [
         {
-            name: 'name',
-            weight: 0.5
+            name: 'snippet.channelTitle',
+            weight: 0.4
         },
         {
-            name: 'title',
-            weight: 0.3
+            name: 'snippet.tags',
+            weight: 0.2
+        },
+        {
+            name: 'snippet.description',
+            weight: 0.5
         }
     ];
 }

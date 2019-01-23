@@ -1,11 +1,12 @@
 import * as React from "react";
-import InputBase from "@material-ui/core/InputBase";
+import { InputBase, Typography } from "@material-ui/core";
 import { fade } from "@material-ui/core/styles/colorManipulator";
 import { withStyles, Theme, createStyles, WithStyles } from "@material-ui/core/styles";
 import SearchIcon from "@material-ui/icons/Search";
 import * as Fuse from "fuse.js";
 import SearchDropdown from "./SearchDropdown";
 import { ISearchResultOptions } from "./SearchResult";
+var colors = require("./Common.scss");
 
 const styles = (theme: Theme) => createStyles({
     root: {
@@ -14,7 +15,7 @@ const styles = (theme: Theme) => createStyles({
     search: {
         position: "relative",
         borderRadius: theme.shape.borderRadius,
-        border: "1px solid #828785",
+        border: `1px solid ${colors.placeholderGray}`,
         backgroundColor: fade(theme.palette.common.white, 0.15),
         "&:hover": {
             backgroundColor: fade(theme.palette.common.white, 0.25),
@@ -23,35 +24,31 @@ const styles = (theme: Theme) => createStyles({
         width: "100%",
         [theme.breakpoints.up("sm")]: {
             width: "auto"
-        }
+        },
+        display: "grid",
+        gridTemplateColumns: "50px auto max-content",
+        alignItems: "center"
     },
     searchIcon: {
-        width: theme.spacing.unit * 5,
-        height: "100%",
-        position: "absolute",
         pointerEvents: "none",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
         color: "#828785"
     },
     inputRoot: {
-        color: "inherit",
-        width: "100%"
+        color: "inherit"
     },
     inputInput: {
         paddingTop: theme.spacing.unit,
         paddingRight: theme.spacing.unit,
         paddingBottom: theme.spacing.unit,
-        paddingLeft: theme.spacing.unit * 5,
+        paddingLeft: theme.spacing.unit * 2,
         transition: theme.transitions.create("width"),
         width: "100%"
     },
-    dropdownTitle: {
-        fontFamily: "Georgia, Helvetica, Tahoma, Sans-Serif, Gaura Times, Serif",
-        marginBottom: "25px",
-        textDecoration: "underline"
-    },
+    searchResultCount: {
+        marginRight: "10px",
+        fontStyle: "italic",
+        color: colors.placeholderGray
+    }
 });
 
 export interface ISearchBoxProps<T> extends WithStyles<typeof styles> {
@@ -93,12 +90,15 @@ class SearchBox extends React.Component<ISearchBoxProps<any>, ISearchBoxState> {
                         placeholder={this.props.placeholder || ""}
                         classes={{
                             root: classes.inputRoot,
-                            input: classes.inputInput,
+                            input: classes.inputInput
                         }}
                         onChange={this.search}
                         onKeyDown={this.search}
                         onMouseDown={this.search}
                     />
+                    <Typography component="p" className={classes.searchResultCount}>
+                        {`${this.state.searchResults.length} results`}
+                    </Typography>
                 </div>
                 {this.renderDropdown()}
             </div>
@@ -114,9 +114,11 @@ class SearchBox extends React.Component<ISearchBoxProps<any>, ISearchBoxState> {
             return;
         }
         const searchKey = event.target.value;
+
+        this.performFuseSearch(searchKey);
+
         let showDropdown = false;
         if (searchKey.length > 0) {
-            this.performFuseSearch(searchKey);
             showDropdown = true;
         }
         this.setState({
@@ -129,7 +131,12 @@ class SearchBox extends React.Component<ISearchBoxProps<any>, ISearchBoxState> {
         options.includeMatches = true;
         options.includeScore = true;
         const fuse = new Fuse(this.props.searchData, options);
-        const result = fuse.search(searchKey);
+
+        let result = [];
+        if (searchKey.length > 0) {
+            result = fuse.search(searchKey);
+        }
+
         this.setState({
             searchResults: result
         });

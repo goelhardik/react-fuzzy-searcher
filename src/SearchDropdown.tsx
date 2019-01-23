@@ -4,6 +4,7 @@ import ClickAwayListener from "@material-ui/core/ClickAwayListener";
 import { Grow, Paper, Popper, MenuItem, MenuList, Divider, Typography } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import SearchResult, { ISearchResultOptions } from "./SearchResult";
+var colors = require("./Common.scss");
 
 const styles = (theme: Theme) => createStyles({
     root: {
@@ -12,7 +13,7 @@ const styles = (theme: Theme) => createStyles({
     },
     dropdownContainer: {
         marginTop: "10px",
-        border: "1px solid #828785"
+        border: `1px solid ${colors.placeholderGray}`
         // boxShadow: "0 0 0 100vmax rgba(0,0,0,.3)"
     },
     grow: {

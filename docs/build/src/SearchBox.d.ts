@@ -1,10 +1,10 @@
-import * as React from 'react';
-import { Theme, WithStyles } from '@material-ui/core/styles';
-import { FuseOptions } from "fuse.js";
-import { ISearchResultOptions } from './SearchResult';
+import * as React from "react";
+import { Theme, WithStyles } from "@material-ui/core/styles";
+import * as Fuse from "fuse.js";
+import { ISearchResultOptions } from "./SearchResult";
 declare const styles: (theme: Theme) => Record<"root" | "search" | "searchIcon" | "inputRoot" | "inputInput" | "dropdownTitle", import("@material-ui/core/styles/withStyles").CSSProperties>;
 export interface ISearchBoxProps<T> extends WithStyles<typeof styles> {
-    fuseOptions: FuseOptions<T>;
+    fuseOptions: Fuse.FuseOptions<T>;
     searchData: any;
     showAvatar: boolean;
     maxDropdownHeight?: string;

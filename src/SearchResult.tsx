@@ -55,7 +55,7 @@ interface ISearchResultState {
 
 class SearchResult extends React.Component<ISearchResultProps, ISearchResultState> {
 
-    render() {
+    public render() {
         const { classes, searchResultOptions } = this.props;
 
         return (<div className={classes.root}>
@@ -74,8 +74,8 @@ class SearchResult extends React.Component<ISearchResultProps, ISearchResultStat
         </div>);
     }
 
-    getImageUrl = (searchResultOptions: ISearchResultOptions | undefined) => {
-        var imageUrl = this.props.fuseResult.item.imageUrl;
+    private getImageUrl = (searchResultOptions: ISearchResultOptions | undefined) => {
+        let imageUrl = this.props.fuseResult.item.imageUrl;
         if (searchResultOptions && searchResultOptions.searchResultImageUrl) {
             imageUrl = deepValue(this.props.fuseResult.item, searchResultOptions.searchResultImageUrl);
         }
@@ -83,8 +83,8 @@ class SearchResult extends React.Component<ISearchResultProps, ISearchResultStat
         return imageUrl;
     }
 
-    getSearchResultTitle = (searchResultOptions: ISearchResultOptions | undefined) => {
-        var title = this.props.fuseResult.item.title;
+    private getSearchResultTitle = (searchResultOptions: ISearchResultOptions | undefined) => {
+        let title = this.props.fuseResult.item.title;
         if (searchResultOptions && searchResultOptions.searchResultTitleKey) {
             title = deepValue(this.props.fuseResult.item, searchResultOptions.searchResultTitleKey);
         }
@@ -93,7 +93,7 @@ class SearchResult extends React.Component<ISearchResultProps, ISearchResultStat
     }
 
 
-    renderMatchLine = (match: any) => {
+    private renderMatchLine = (match: any) => {
         if (!match) {
             return null;
         }
@@ -114,9 +114,11 @@ class SearchResult extends React.Component<ISearchResultProps, ISearchResultStat
             spans.push(remaining);
         }
         spans.push(<span>...</span>);
-        return <Typography component="p" className={classes.resultSubtitle}>
-            {spans.map((d, idx) => d)}
-        </Typography>
+        return (
+            <Typography component="p" className={classes.resultSubtitle}>
+                {spans.map((d, idx) => d)}
+            </Typography>
+        );
     }
 
 }

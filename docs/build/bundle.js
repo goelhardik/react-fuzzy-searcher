@@ -38405,44 +38405,44 @@ var styles = function (theme) {
     var _a;
     return styles_1.createStyles({
         root: {
-            width: '100%',
+            width: "100%"
         },
         search: (_a = {
-                position: 'relative',
+                position: "relative",
                 borderRadius: theme.shape.borderRadius,
                 border: "1px solid #828785",
                 backgroundColor: colorManipulator_1.fade(theme.palette.common.white, 0.15),
-                '&:hover': {
+                "&:hover": {
                     backgroundColor: colorManipulator_1.fade(theme.palette.common.white, 0.25),
                 },
                 marginLeft: 0,
-                width: '100%'
+                width: "100%"
             },
-            _a[theme.breakpoints.up('sm')] = {
-                width: 'auto',
+            _a[theme.breakpoints.up("sm")] = {
+                width: "auto"
             },
             _a),
         searchIcon: {
             width: theme.spacing.unit * 5,
-            height: '100%',
-            position: 'absolute',
-            pointerEvents: 'none',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
+            height: "100%",
+            position: "absolute",
+            pointerEvents: "none",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
             color: "#828785"
         },
         inputRoot: {
-            color: 'inherit',
-            width: '100%',
+            color: "inherit",
+            width: "100%"
         },
         inputInput: {
             paddingTop: theme.spacing.unit,
             paddingRight: theme.spacing.unit,
             paddingBottom: theme.spacing.unit,
             paddingLeft: theme.spacing.unit * 5,
-            transition: theme.transitions.create('width'),
-            width: '100%',
+            transition: theme.transitions.create("width"),
+            width: "100%"
         },
         dropdownTitle: {
             fontFamily: "Georgia, Helvetica, Tahoma, Sans-Serif, Gaura Times, Serif",
@@ -38479,13 +38479,12 @@ var SearchBox = /** @class */ (function (_super) {
             options.includeScore = true;
             var fuse = new Fuse(_this.props.searchData, options);
             var result = fuse.search(searchKey);
-            console.log("FUSE RESULTS", searchKey, result);
             _this.setState({
                 searchResults: result
             });
         };
         _this.renderDropdown = function () {
-            return React.createElement(SearchDropdown_1.default, { anchorEl: _this.anchorEl, data: _this.state.searchResults, showDropdown: _this.state.showDropdown, handleDropdownClose: _this.handleDropdownClose, maxDropdownHeight: _this.props.maxDropdownHeight || "500px", showAvatar: _this.props.showAvatar, searchResultOptions: _this.props.searchResultOptions });
+            return (React.createElement(SearchDropdown_1.default, { anchorEl: _this.anchorEl, data: _this.state.searchResults, showDropdown: _this.state.showDropdown, handleDropdownClose: _this.handleDropdownClose, maxDropdownHeight: _this.props.maxDropdownHeight || "500px", showAvatar: _this.props.showAvatar, searchResultOptions: _this.props.searchResultOptions }));
         };
         _this.handleDropdownClose = function (event) {
             if (_this.anchorEl && _this.anchorEl.contains(event.target)) {
@@ -39826,7 +39825,7 @@ var SearchResult = /** @class */ (function (_super) {
                 spans.push(remaining);
             }
             spans.push(React.createElement("span", null, "..."));
-            return React.createElement(core_1.Typography, { component: "p", className: classes.resultSubtitle }, spans.map(function (d, idx) { return d; }));
+            return (React.createElement(core_1.Typography, { component: "p", className: classes.resultSubtitle }, spans.map(function (d, idx) { return d; })));
         };
         return _this;
     }

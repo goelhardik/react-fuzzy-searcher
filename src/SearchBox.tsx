@@ -58,6 +58,7 @@ export interface ISearchBoxProps<T> extends WithStyles<typeof styles> {
     maxDropdownHeight?: string;
     placeholder?: string;
     searchResultOptions?: ISearchResultOptions;
+    hideSearchResultCount?: boolean;
 }
 
 interface ISearchBoxState {
@@ -96,9 +97,9 @@ class SearchBox extends React.Component<ISearchBoxProps<any>, ISearchBoxState> {
                         onKeyDown={this.search}
                         onMouseDown={this.search}
                     />
-                    <Typography component="p" className={classes.searchResultCount}>
+                    {!this.props.hideSearchResultCount && <Typography component="p" className={classes.searchResultCount}>
                         {`${this.state.searchResults.length} results`}
-                    </Typography>
+                    </Typography>}
                 </div>
                 {this.renderDropdown()}
             </div>

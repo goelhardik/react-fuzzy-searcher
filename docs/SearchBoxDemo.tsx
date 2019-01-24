@@ -1,13 +1,14 @@
 import * as React from "react";
-import { withStyles, Theme, createStyles, WithStyles } from '@material-ui/core/styles';
+import { withStyles, Theme, createStyles, WithStyles } from "@material-ui/core/styles";
 import { Typography, TextField } from "@material-ui/core";
 import SearchBox from "../src/SearchBox";
+import MarkdownViewer from "./MarkdownViewer";
 
 var sampleData = require("./data/sampleData.json");
 
 const styles = (theme: Theme) => createStyles({
     root: {
-        width: '100%',
+        width: "100%",
         textAlign: "center",
         fontFamily: "Georgia, Helvetica, Tahoma, Sans-Serif, Gaura Times, Serif",
     },
@@ -47,6 +48,10 @@ const styles = (theme: Theme) => createStyles({
         width: "75%",
         justifySelf: "center",
         marginRight: "30px"
+    },
+    documentation: {
+        width: "100%",
+        display: "block"
     }
 });
 
@@ -66,45 +71,51 @@ class SearchBoxDemo extends React.Component<ISearchBoxDemoProps, ISearchBoxDemoS
         }
     }
 
-    render() {
+    public render() {
         const { classes } = this.props;
 
-        return <div className={classes.root}>
-            <div className={classes.headerSection}>
-                <div className={classes.title}>
-                    <Typography variant="h2">
-                        React Fuzzy Searcher
+        return (
+            <div className={classes.root}>
+                <div className={classes.headerSection}>
+                    <div className={classes.title}>
+                        <Typography variant="h2">
+                            React Fuzzy Searcher
                     </Typography>
-                    <Typography variant="h2" className={classes.subtitle}>
-                        A fuzzy search react component with match highlighting, using Fuse.js for the search.
+                        <Typography variant="h2" className={classes.subtitle}>
+                            A fuzzy search react component with match highlighting, using Fuse.js for the search.
                     </Typography>
-                    <div className={classes.githubStarButton}>
-                        <iframe src="https://ghbtns.com/github-btn.html?user=goelhardik&repo=react-fuzzy-searcher&type=star&count=true&size=large" scrolling="0" width="160px" height="30px" frameBorder="0"></iframe>
+                        <div className={classes.githubStarButton}>
+                            <iframe src="https://ghbtns.com/github-btn.html?user=goelhardik&repo=react-fuzzy-searcher&type=star&count=true&size=large" scrolling="0" width="160px" height="30px" frameBorder="0" />
+                        </div>
                     </div>
                 </div>
-            </div>
-
-            <div className={classes.content}>
-                {false && <TextField
-                    id="input-list"
-                    label="Input list to search on"
-                    multiline
-                    value={this.state.searchableData}
-                    onChange={this.handleSearchableDataChange}
-                    className={classes.textField}
-                    margin="normal"
-                    variant="outlined"
-                    rows={10}
-                />}
-                <div className={classes.searchBox}>
-                    {this.renderSearchBox()}
+                <div className={classes.content}>
+                    {false && (
+                        <TextField
+                            id="input-list"
+                            label="Input list to search on"
+                            multiline
+                            value={this.state.searchableData}
+                            onChange={this.handleSearchableDataChange}
+                            className={classes.textField}
+                            margin="normal"
+                            variant="outlined"
+                            rows={10}
+                        />
+                    )}
+                    <div className={classes.searchBox}>
+                        {this.renderSearchBox()}
+                    </div>
+                </div>
+                <div className={classes.documentation}>
+                    <MarkdownViewer />
                 </div>
             </div>
-        </div>;
+        );
     }
 
-    renderSearchBox = () => {
-        var fuseOptions = {
+    private renderSearchBox = () => {
+        const fuseOptions = {
             keys: getSearchKeys(),
             includeMatches: true,
             includeScore: true,
@@ -115,25 +126,27 @@ class SearchBoxDemo extends React.Component<ISearchBoxDemoProps, ISearchBoxDemoS
             return d;
         });
 
-        return <SearchBox
-            showAvatar={true}
-            fuseOptions={fuseOptions}
-            searchData={sampleData}
-            // placeholder="Type something eg. 'football', 'ellen'.."
-            placeholder="Search amongst the 50 most popular YouTube videos eg. 'football', 'ellen'.."
-            searchResultOptions={{
-                searchResultTitleKey: "snippet.title",
-                searchResultImageUrl: "snippet.thumbnails.default.url",
-                searchResultMatchKeys: {
-                    "snippet.channelTitle": "Channel Title",
-                    "snippet.tags": "Tags",
-                    "snippet.description": "Description"
-                }
-            }}
-        />;
+        return (
+            <SearchBox
+                showAvatar={true}
+                fuseOptions={fuseOptions}
+                searchData={sampleData}
+                // placeholder="Type something eg. "football", "ellen".."
+                placeholder="Search amongst the 50 most popular YouTube videos eg. 'football', 'ellen'.."
+                searchResultOptions={{
+                    searchResultTitleKey: "snippet.title",
+                    searchResultImageUrl: "snippet.thumbnails.default.url",
+                    searchResultMatchKeys: {
+                        "snippet.channelTitle": "Channel Title",
+                        "snippet.tags": "Tags",
+                        "snippet.description": "Description"
+                    }
+                }}
+            />
+        );
     }
 
-    handleSearchableDataChange = (event: any) => {
+    private handleSearchableDataChange = (event: any) => {
         // var value = event.target.value;
         // var obj = JSON.parse(value);
         // var pretty = JSON.stringify(obj, undefined, 4);
@@ -148,15 +161,15 @@ class SearchBoxDemo extends React.Component<ISearchBoxDemoProps, ISearchBoxDemoS
 export function getSearchKeys() {
     return [
         {
-            name: 'snippet.channelTitle',
+            name: "snippet.channelTitle",
             weight: 0.4
         },
         {
-            name: 'snippet.tags',
+            name: "snippet.tags",
             weight: 0.2
         },
         {
-            name: 'snippet.description',
+            name: "snippet.description",
             weight: 0.5
         }
     ];

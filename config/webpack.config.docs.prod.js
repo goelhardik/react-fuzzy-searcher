@@ -159,6 +159,20 @@ const baseConfig = {
                 // Remove this when webpack adds a warning or an error for this.
                 // See https://github.com/webpack/webpack/issues/6571
                 sideEffects: true,
+            },
+            {
+                test: /\.md$/,
+                use: [
+                    {
+                        loader: "html-loader"
+                    },
+                    {
+                        loader: "markdown-loader",
+                        options: {
+                            /* your options here */
+                        }
+                    }
+                ]
             }
         ]
     },

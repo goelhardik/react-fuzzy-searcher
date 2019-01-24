@@ -2,7 +2,6 @@ import * as React from "react";
 import { withStyles, Theme, createStyles, WithStyles } from "@material-ui/core/styles";
 import { Typography, TextField } from "@material-ui/core";
 import SearchBox from "../src/SearchBox";
-import MarkdownViewer from "./MarkdownViewer";
 
 var sampleData = require("./data/sampleData.json");
 
@@ -107,9 +106,6 @@ class SearchBoxDemo extends React.Component<ISearchBoxDemoProps, ISearchBoxDemoS
                         {this.renderSearchBox()}
                     </div>
                 </div>
-                <div className={classes.documentation}>
-                    <MarkdownViewer />
-                </div>
             </div>
         );
     }
@@ -128,12 +124,11 @@ class SearchBoxDemo extends React.Component<ISearchBoxDemoProps, ISearchBoxDemoS
 
         return (
             <SearchBox
-                showAvatar={true}
                 fuseOptions={fuseOptions}
                 searchData={sampleData}
-                // placeholder="Type something eg. "football", "ellen".."
                 placeholder="Search amongst the 50 most popular YouTube videos eg. 'football', 'ellen'.."
                 searchResultOptions={{
+                    showAvatar: true,
                     searchResultTitleKey: "snippet.title",
                     searchResultImageUrl: "snippet.thumbnails.default.url",
                     searchResultMatchKeys: {
@@ -147,10 +142,6 @@ class SearchBoxDemo extends React.Component<ISearchBoxDemoProps, ISearchBoxDemoS
     }
 
     private handleSearchableDataChange = (event: any) => {
-        // var value = event.target.value;
-        // var obj = JSON.parse(value);
-        // var pretty = JSON.stringify(obj, undefined, 4);
-
         this.setState({
             searchableData: event.target.value
         })

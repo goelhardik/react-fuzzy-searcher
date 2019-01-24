@@ -10916,7 +10916,7 @@ var SearchBox_1 = __webpack_require__(437);
 var sampleData = __webpack_require__(450);
 var styles = function (theme) { return styles_1.createStyles({
     root: {
-        width: '100%',
+        width: "100%",
         textAlign: "center",
         fontFamily: "Georgia, Helvetica, Tahoma, Sans-Serif, Gaura Times, Serif",
     },
@@ -10956,6 +10956,10 @@ var styles = function (theme) { return styles_1.createStyles({
         width: "75%",
         justifySelf: "center",
         marginRight: "30px"
+    },
+    documentation: {
+        width: "100%",
+        display: "block"
     }
 }); };
 var SearchBoxDemo = /** @class */ (function (_super) {
@@ -10973,9 +10977,8 @@ var SearchBoxDemo = /** @class */ (function (_super) {
                 d.onClick = function () { return console.log("Clicked"); };
                 return d;
             });
-            return React.createElement(SearchBox_1.default, { showAvatar: true, fuseOptions: fuseOptions, searchData: sampleData, 
-                // placeholder="Type something eg. 'football', 'ellen'.."
-                placeholder: "Search amongst the 50 most popular YouTube videos eg. 'football', 'ellen'..", searchResultOptions: {
+            return (React.createElement(SearchBox_1.default, { fuseOptions: fuseOptions, searchData: sampleData, placeholder: "Search amongst the 50 most popular YouTube videos eg. 'football', 'ellen'..", searchResultOptions: {
+                    showAvatar: true,
                     searchResultTitleKey: "snippet.title",
                     searchResultImageUrl: "snippet.thumbnails.default.url",
                     searchResultMatchKeys: {
@@ -10983,12 +10986,9 @@ var SearchBoxDemo = /** @class */ (function (_super) {
                         "snippet.tags": "Tags",
                         "snippet.description": "Description"
                     }
-                } });
+                } }));
         };
         _this.handleSearchableDataChange = function (event) {
-            // var value = event.target.value;
-            // var obj = JSON.parse(value);
-            // var pretty = JSON.stringify(obj, undefined, 4);
             _this.setState({
                 searchableData: event.target.value
             });
@@ -11000,7 +11000,7 @@ var SearchBoxDemo = /** @class */ (function (_super) {
     }
     SearchBoxDemo.prototype.render = function () {
         var classes = this.props.classes;
-        return React.createElement("div", { className: classes.root },
+        return (React.createElement("div", { className: classes.root },
             React.createElement("div", { className: classes.headerSection },
                 React.createElement("div", { className: classes.title },
                     React.createElement(core_1.Typography, { variant: "h2" }, "React Fuzzy Searcher"),
@@ -11008,23 +11008,23 @@ var SearchBoxDemo = /** @class */ (function (_super) {
                     React.createElement("div", { className: classes.githubStarButton },
                         React.createElement("iframe", { src: "https://ghbtns.com/github-btn.html?user=goelhardik&repo=react-fuzzy-searcher&type=star&count=true&size=large", scrolling: "0", width: "160px", height: "30px", frameBorder: "0" })))),
             React.createElement("div", { className: classes.content },
-                 false && false,
-                React.createElement("div", { className: classes.searchBox }, this.renderSearchBox())));
+                 false && (false),
+                React.createElement("div", { className: classes.searchBox }, this.renderSearchBox()))));
     };
     return SearchBoxDemo;
 }(React.Component));
 function getSearchKeys() {
     return [
         {
-            name: 'snippet.channelTitle',
+            name: "snippet.channelTitle",
             weight: 0.4
         },
         {
-            name: 'snippet.tags',
+            name: "snippet.tags",
             weight: 0.2
         },
         {
-            name: 'snippet.description',
+            name: "snippet.description",
             weight: 0.5
         }
     ];
@@ -38509,7 +38509,7 @@ var SearchBox = /** @class */ (function (_super) {
             });
         };
         _this.renderDropdown = function () {
-            return (React.createElement(SearchDropdown_1.default, { anchorEl: _this.anchorEl, data: _this.state.searchResults, showDropdown: _this.state.showDropdown, handleDropdownClose: _this.handleDropdownClose, maxDropdownHeight: _this.props.maxDropdownHeight || "500px", showAvatar: _this.props.showAvatar, searchResultOptions: _this.props.searchResultOptions }));
+            return (React.createElement(SearchDropdown_1.default, { anchorEl: _this.anchorEl, data: _this.state.searchResults, showDropdown: _this.state.showDropdown, handleDropdownClose: _this.handleDropdownClose, maxDropdownHeight: _this.props.maxDropdownHeight || "500px", searchResultOptions: _this.props.searchResultOptions }));
         };
         _this.handleDropdownClose = function (event) {
             if (_this.anchorEl && _this.anchorEl.contains(event.target)) {
@@ -38534,7 +38534,7 @@ var SearchBox = /** @class */ (function (_super) {
                         root: classes.inputRoot,
                         input: classes.inputInput
                     }, onChange: this.search, onKeyDown: this.search, onMouseDown: this.search }),
-                React.createElement(core_1.Typography, { component: "p", className: classes.searchResultCount }, this.state.searchResults.length + " results")),
+                !this.props.hideSearchResultCount && React.createElement(core_1.Typography, { component: "p", className: classes.searchResultCount }, this.state.searchResults.length + " results")),
             this.renderDropdown()));
     };
     return SearchBox;
@@ -39689,8 +39689,8 @@ var SearchDropdown = /** @class */ (function (_super) {
             }
             return _this.props.data.map(function (d, idx) {
                 return React.createElement("div", null,
-                    d.item.onClick && _this.renderMenuItemWithoutLink(d, idx)
-                        || _this.renderMenuItemWithLink(d, idx),
+                    typeof d.item.onClick === "string" || d.item.onClick instanceof String ?
+                        _this.renderMenuItemWithLink(d, idx) : _this.renderMenuItemWithoutLink(d, idx),
                     React.createElement(core_1.Divider, null));
             });
         };
@@ -39706,7 +39706,7 @@ var SearchDropdown = /** @class */ (function (_super) {
                     root: classes.menuItem
                 }, component: function (_a) {
                     var innerRef = _a.innerRef, props = __rest(_a, ["innerRef"]);
-                    return React.createElement(react_router_dom_1.Link, __assign({}, props, { to: fuseResult.item.onClickLink }));
+                    return React.createElement(react_router_dom_1.Link, __assign({}, props, { to: fuseResult.item.onClick }));
                 } }, _this.renderSearchResult(fuseResult));
         };
         _this.handleMenuItemClick = function (d, idx, event) {
@@ -39742,7 +39742,7 @@ var SearchDropdown = /** @class */ (function (_super) {
         if (fuseResult.item.onRender) {
             return fuseResult.item.onRender(fuseResult);
         }
-        return React.createElement(SearchResult_1.default, { showAvatar: this.props.showAvatar, fuseResult: fuseResult, searchResultOptions: this.props.searchResultOptions });
+        return React.createElement(SearchResult_1.default, { fuseResult: fuseResult, searchResultOptions: this.props.searchResultOptions });
     };
     return SearchDropdown;
 }(React.Component));
@@ -39860,7 +39860,7 @@ var SearchResult = /** @class */ (function (_super) {
         var _this = this;
         var _a = this.props, classes = _a.classes, searchResultOptions = _a.searchResultOptions;
         return (React.createElement("div", { className: classes.root },
-            this.props.showAvatar && React.createElement(core_1.Avatar, { src: this.getImageUrl(searchResultOptions), className: classes.avatar }),
+            searchResultOptions && searchResultOptions.showAvatar && React.createElement(core_1.Avatar, { src: this.getImageUrl(searchResultOptions), className: classes.avatar }),
             React.createElement("div", { className: classes.resultText },
                 React.createElement(core_1.Typography, { component: "p", className: classes.resultTitle }, this.getSearchResultTitle(searchResultOptions)),
                 this.props.fuseResult.matches.slice(0, this.props.takeTopMatches || 3)

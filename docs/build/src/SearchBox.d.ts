@@ -6,10 +6,10 @@ declare const styles: (theme: Theme) => Record<"root" | "search" | "searchIcon" 
 export interface ISearchBoxProps<T> extends WithStyles<typeof styles> {
     fuseOptions: Fuse.FuseOptions<T>;
     searchData: any;
-    showAvatar: boolean;
     maxDropdownHeight?: string;
     placeholder?: string;
     searchResultOptions?: ISearchResultOptions;
+    hideSearchResultCount?: boolean;
 }
-declare const _default: React.ComponentType<Pick<ISearchBoxProps<any>, "fuseOptions" | "searchData" | "showAvatar" | "maxDropdownHeight" | "placeholder" | "searchResultOptions"> & import("@material-ui/core").StyledComponentProps<"root" | "search" | "searchIcon" | "inputRoot" | "inputInput" | "searchResultCount">>;
+declare const _default: React.ComponentType<Pick<ISearchBoxProps<any>, "fuseOptions" | "searchData" | "maxDropdownHeight" | "placeholder" | "searchResultOptions" | "hideSearchResultCount"> & import("@material-ui/core").StyledComponentProps<"root" | "search" | "searchIcon" | "inputRoot" | "inputInput" | "searchResultCount">>;
 export default _default;

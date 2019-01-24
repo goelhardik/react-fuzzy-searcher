@@ -2,7 +2,6 @@ const webpack = require("webpack");
 const TerserPlugin = require("terser-webpack-plugin");
 const paths = require("./paths");
 
-
 // common function to get style loaders
 const getStyleLoaders = (cssOptions, preProcessor) => {
     const loaders = [
@@ -162,17 +161,7 @@ const baseConfig = {
             },
             {
                 test: /\.md$/,
-                use: [
-                    {
-                        loader: "html-loader"
-                    },
-                    {
-                        loader: "markdown-loader",
-                        options: {
-                            /* your options here */
-                        }
-                    }
-                ]
+                use: "raw-loader"
             }
         ]
     },

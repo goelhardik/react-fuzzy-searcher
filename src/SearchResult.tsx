@@ -37,13 +37,13 @@ const styles = (theme: Theme) => createStyles({
 });
 
 export interface ISearchResultOptions {
+    showAvatar?: boolean;
     searchResultTitleKey?: string;
     searchResultMatchKeys?: {};
     searchResultImageUrl?: string;
 }
 
 export interface ISearchResultProps extends WithStyles<typeof styles> {
-    showAvatar: boolean;
     fuseResult: any;
     takeTopMatches?: number;
     searchResultOptions?: ISearchResultOptions;
@@ -59,7 +59,7 @@ class SearchResult extends React.Component<ISearchResultProps, ISearchResultStat
         const { classes, searchResultOptions } = this.props;
 
         return (<div className={classes.root}>
-            {this.props.showAvatar && <Avatar src={this.getImageUrl(searchResultOptions)} className={classes.avatar} />}
+            {searchResultOptions && searchResultOptions.showAvatar && <Avatar src={this.getImageUrl(searchResultOptions)} className={classes.avatar} />}
             <div className={classes.resultText}>
                 <Typography component="p" className={classes.resultTitle}>
                     {this.getSearchResultTitle(searchResultOptions)}

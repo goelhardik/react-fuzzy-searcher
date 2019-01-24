@@ -8,8 +8,7 @@ export interface ISearchDropdownProps extends WithStyles<typeof styles> {
     handleDropdownClose(event: any): void;
     data: any;
     maxDropdownHeight: string;
-    showAvatar: boolean;
     searchResultOptions?: ISearchResultOptions;
 }
-declare const _default: React.ComponentType<Pick<ISearchDropdownProps, "data" | "showDropdown" | "showAvatar" | "maxDropdownHeight" | "searchResultOptions" | "anchorEl" | "handleDropdownClose"> & import("@material-ui/core").StyledComponentProps<"root" | "dropdownContainer" | "grow" | "menuItem" | "noResultsText">>;
+declare const _default: React.ComponentType<Pick<ISearchDropdownProps, "data" | "showDropdown" | "maxDropdownHeight" | "searchResultOptions" | "anchorEl" | "handleDropdownClose"> & import("@material-ui/core").StyledComponentProps<"root" | "dropdownContainer" | "grow" | "menuItem" | "noResultsText">>;
 export default _default;

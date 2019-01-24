@@ -34,7 +34,6 @@ export interface ISearchDropdownProps extends WithStyles<typeof styles> {
     handleDropdownClose(event: any): void;
     data: any;
     maxDropdownHeight: string;
-    showAvatar: boolean;
     searchResultOptions?: ISearchResultOptions;
 }
 
@@ -103,8 +102,8 @@ class SearchDropdown extends React.Component<ISearchDropdownProps, ISearchDropdo
         return this.props.data.map((d: any, idx: number) => {
             return <div>
                 {
-                    d.item.onClick && this.renderMenuItemWithoutLink(d, idx)
-                    || this.renderMenuItemWithLink(d, idx)
+                    typeof d.item.onClick === "string" || d.item.onClick instanceof String ?
+                    this.renderMenuItemWithLink(d, idx) : this.renderMenuItemWithoutLink(d, idx)
                 }
                 <Divider />
             </div>;
@@ -131,7 +130,7 @@ class SearchDropdown extends React.Component<ISearchDropdownProps, ISearchDropdo
             classes={{
                 root: classes.menuItem
             }}
-            component={({ innerRef, ...props }) => <Link {...props} to={fuseResult.item.onClickLink} />}>
+            component={({ innerRef, ...props }) => <Link {...props} to={fuseResult.item.onClick} />}>
             {this.renderSearchResult(fuseResult)}
         </MenuItem>
     }
@@ -141,7 +140,6 @@ class SearchDropdown extends React.Component<ISearchDropdownProps, ISearchDropdo
             return fuseResult.item.onRender(fuseResult);
         }
         return <SearchResult
-            showAvatar={this.props.showAvatar}
             fuseResult={fuseResult}
             searchResultOptions={this.props.searchResultOptions} />;
     }

@@ -1,7 +1,4 @@
----
-id: about
-title: About
----
+## About
 
 **13 Different Pickers** - Sketch, Photoshop, Chrome and many more
 

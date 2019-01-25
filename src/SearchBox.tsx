@@ -10,7 +10,8 @@ var colors = require("./Common.scss");
 
 const styles = (theme: Theme) => createStyles({
     root: {
-        width: "100%"
+        width: "100%",
+        fontFamily: "Georgia, Helvetica, Tahoma, Sans-Serif, Gaura Times, Serif",
     },
     search: {
         position: "relative",
@@ -34,7 +35,8 @@ const styles = (theme: Theme) => createStyles({
         color: "#828785"
     },
     inputRoot: {
-        color: "inherit"
+        color: "inherit",
+        fontFamily: "Georgia, Helvetica, Tahoma, Sans-Serif, Gaura Times, Serif"
     },
     inputInput: {
         paddingTop: theme.spacing.unit,
@@ -42,12 +44,14 @@ const styles = (theme: Theme) => createStyles({
         paddingBottom: theme.spacing.unit,
         paddingLeft: theme.spacing.unit * 2,
         transition: theme.transitions.create("width"),
-        width: "100%"
+        width: "100%",
+        fontFamily: "Georgia, Helvetica, Tahoma, Sans-Serif, Gaura Times, Serif"
     },
     searchResultCount: {
         marginRight: "10px",
         fontStyle: "italic",
-        color: colors.placeholderGray
+        color: colors.placeholderGray,
+        fontFamily: "Georgia, Helvetica, Tahoma, Sans-Serif, Gaura Times, Serif"
     }
 });
 

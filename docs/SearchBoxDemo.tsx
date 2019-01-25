@@ -2,6 +2,7 @@ import * as React from "react";
 import { withStyles, Theme, createStyles, WithStyles } from "@material-ui/core/styles";
 import { Typography, TextField } from "@material-ui/core";
 import SearchBox from "../src/SearchBox";
+import MarkdownViewer from "./MarkdownViewer";
 
 var sampleData = require("./data/sampleData.json");
 
@@ -9,7 +10,7 @@ const styles = (theme: Theme) => createStyles({
     root: {
         width: "100%",
         textAlign: "center",
-        fontFamily: "Georgia, Helvetica, Tahoma, Sans-Serif, Gaura Times, Serif",
+        fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
     },
     headerSection: {
         height: "400px",
@@ -106,6 +107,9 @@ class SearchBoxDemo extends React.Component<ISearchBoxDemoProps, ISearchBoxDemoS
                         {this.renderSearchBox()}
                     </div>
                 </div>
+                {false && <div className={classes.documentation}>
+                    <MarkdownViewer />
+                </div>}
             </div>
         );
     }

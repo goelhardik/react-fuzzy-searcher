@@ -19,13 +19,14 @@ const styles = (theme: Theme) => createStyles({
         overflow: "hidden"
     },
     resultTitle: {
-        fontWeight: "bold",
-        fontFamily: "Georgia, Helvetica, Tahoma, Sans-Serif, Gaura Times, Serif",
-        fontSize: "18px"
+        fontSize: "1.25rem",
+        fontFamily: '"Roboto", "Helvetica", "Arial", sans - serif',
+        fontWeight: 400
     },
     resultSubtitle: {
-        fontFamily: "Georgia, Helvetica, Tahoma, Sans-Serif, Gaura Times, Serif",
-        fontSize: "16px",
+        fontSize: "1.0rem",
+        fontFamily: '"Roboto", "Helvetica", "Arial", sans - serif',
+        fontWeight: 350,
         textOverflow: "ellipsis",
         overflow: "hidden"
     },

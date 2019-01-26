@@ -45,7 +45,10 @@ const styles = (theme: Theme) => createStyles({
         paddingLeft: theme.spacing.unit * 2,
         transition: theme.transitions.create("width"),
         width: "100%",
-        fontFamily: "Georgia, Helvetica, Tahoma, Sans-Serif, Gaura Times, Serif"
+        fontFamily: "Georgia, Helvetica, Tahoma, Sans-Serif, Gaura Times, Serif",
+        fontSize: "1.1rem",
+        // fontFamily: '"Roboto", "Helvetica", "Arial", sans - serif',
+        fontWeight: 350
     },
     searchResultCount: {
         marginRight: "10px",

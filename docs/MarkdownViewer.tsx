@@ -36,8 +36,8 @@ class MarkdownViewer extends React.Component<IMarkdownViewerProps, {}> {
                         content: markdowns.gettingStarted
                     },
                     {
-                        title: "getting started",
-                        content: markdowns.gettingStarted
+                        title: "Install",
+                        content: markdowns.install
                     }
                 ]}
             />

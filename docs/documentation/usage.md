@@ -53,7 +53,16 @@ class SearchBoxDemo extends React.Component<ISearchBoxDemoProps, ISearchBoxDemoS
             return d;
         });
 
-        var searchResultOptions = { showAvatar: true, searchResultTitleKey: "snippet.title", searchResultImageUrl: "snippet.thumbnails.default.url", searchResultMatchKeys: { "snippet.channelTitle": "Channel Title", "snippet.tags": "Tags", "snippet.description": "Description" } };
+        var searchResultOptions = { 
+            showAvatar: true, 
+            searchResultTitleKey: "snippet.title", 
+            searchResultImageUrl: "snippet.thumbnails.default.url", 
+            searchResultMatchKeys: { 
+                "snippet.channelTitle": "Channel Title", 
+                "snippet.tags": "Tags", 
+                "snippet.description": "Description" 
+            } 
+        };
 
         return (
             <SearchBox

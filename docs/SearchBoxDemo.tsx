@@ -110,7 +110,7 @@ class SearchBoxDemo extends React.Component<ISearchBoxDemoProps, ISearchBoxDemoS
                         {this.renderSearchBox()}
                     </div>
                 </div>
-                {true && <div className={classes.documentation}>
+                {false && <div className={classes.documentation}>
                     <MarkdownViewer />
                 </div>}
             </div>

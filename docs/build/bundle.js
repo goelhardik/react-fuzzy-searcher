@@ -15740,8 +15740,7 @@ var SearchBoxDemo = /** @class */ (function (_super) {
             React.createElement("div", { className: classes.content },
                  false && (false),
                 React.createElement("div", { className: classes.searchBox }, this.renderSearchBox())),
-             true && React.createElement("div", { className: classes.documentation },
-                React.createElement(MarkdownViewer_1.default, null))));
+             false && false));
     };
     return SearchBoxDemo;
 }(React.Component));

@@ -1,10 +1,10 @@
 import * as React from "react";
 import { withStyles, Theme, createStyles, WithStyles } from "@material-ui/core/styles";
 import { Button, Paper } from "@material-ui/core";
-import * as ReactMarkdown from "react-markdown";
 import "./MarkdownGrid.css";
+import "./solarized-light.css";
 
-var colors = require("./Common.scss");
+// var colors = require("./Common.scss");
 var hljs = require('highlight.js');
 var Remarkable = require('remarkable');
 var md = new Remarkable('full', {
@@ -44,16 +44,14 @@ var md = new Remarkable('full', {
 
 const styles = (theme: Theme) => createStyles({
     root: {
-        width: "max-content",
         margin: "auto",
         textAlign: "left",
         fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
-        display: "grid",
-        gridTemplateColumns: "1fr 7fr",
-        gridColumnGap: "20px"
+        padding: "20px"
     },
     paperContainer: {
-        backgroundColor: colors.backgroundGray
+        // backgroundColor: colors.backgroundGray
+        marginBottom: "20px"
     },
     sidebar: {
         height: "min-content",
@@ -98,7 +96,7 @@ class MarkdownGrid extends React.Component<IMarkdownGridProps, {}> {
         return (
             <Paper elevation={4} className={classes.paperContainer}>
                 <div className={classes.root}>
-                    {this.renderSidebar()}
+                    {false && this.renderSidebar()}
                     {this.renderContent()}
                 </div>
             </Paper>
@@ -123,42 +121,10 @@ class MarkdownGrid extends React.Component<IMarkdownGridProps, {}> {
         return <div className={classes.contentContainer}>
             {sections.map((s: IMarkdownGridSection, idx: number) => {
                 return <div dangerouslySetInnerHTML={{ __html: md.render(s.content) }} />;
-                return <ReactMarkdown
-                    source={s.content}
-                    className={classes.content}
-                    renderers={{
-                        "heading": MarkdownHeading,
-                        "paragraph": MarkdownParagraph,
-                        // "code": MarkdownParagraph
-                    }}
-                />;
             })}
         </div>
     }
 
 }
-
-const MarkdownHeading = (props: any) => {
-    return <div className="markdown-heading">{props.children[0].props.value}</div>;
-};
-
-const MarkdownParagraph = (props: any) => {
-    console.log("PROPS", props);
-    var p = [] as any;
-    props.children.map((c: any, idx: number) => {
-
-        console.log("CHILD", c);
-
-        var classnames = "markdown-paragraph";
-        var value = c.props.value;
-        if (c.type === "strong") {
-            classnames += " paragraph-strong";
-            value = c.props.children[0].props.value;
-        }
-        p.push(<span className={classnames}>{value}</span>);
-    });
-
-    return p;
-};
 
 export default (withStyles(styles)(MarkdownGrid));

@@ -5,7 +5,8 @@ import MarkdownGrid from "./MarkdownGrid";
 
 const styles = (theme: Theme) => createStyles({
     root: {
-        width: "max-content",
+        width: "auto",
+        maxWidth: "75%",
         textAlign: "center",
         fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
         margin: "auto",
@@ -28,16 +29,16 @@ class MarkdownViewer extends React.Component<IMarkdownViewerProps, {}> {
             <MarkdownGrid
                 sections={[
                     {
-                        title: "about",
-                        content: markdowns.about
-                    },
-                    {
-                        title: "getting started",
-                        content: markdowns.gettingStarted
-                    },
-                    {
-                        title: "Install",
+                        title: "Installation",
                         content: markdowns.install
+                    },
+                    {
+                        title: "Usage",
+                        content: markdowns.usage
+                    },
+                    {
+                        title: "Component API",
+                        content: markdowns.componentApi
                     }
                 ]}
             />

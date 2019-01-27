@@ -1,5 +1,5 @@
 export declare const markdowns: {
-    about: any;
-    gettingStarted: any;
     install: any;
+    usage: any;
+    componentApi: any;
 };

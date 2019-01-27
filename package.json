@@ -26,7 +26,7 @@
     "bugs": {
         "url": "https://github.com/goelhardik/react-fuzzy-searcher/issues"
     },
-    "homepage": "https://github.com/goelhardik/react-fuzzy-searcher#readme",
+    "homepage": "https://goelhardik.github.io/react-fuzzy-searcher/",
     "devDependencies": {
         "@types/node": "^10.12.18",
         "@types/react": "^16.7.20",

@@ -53,12 +53,14 @@ class SearchBoxDemo extends React.Component<ISearchBoxDemoProps, ISearchBoxDemoS
             return d;
         });
 
+        var searchResultOptions = { showAvatar: true, searchResultTitleKey: "snippet.title", searchResultImageUrl: "snippet.thumbnails.default.url", searchResultMatchKeys: { "snippet.channelTitle": "Channel Title", "snippet.tags": "Tags", "snippet.description": "Description" } };
+
         return (
             <SearchBox
                 fuseOptions={fuseOptions}
                 searchData={sampleData}
                 placeholder="Search amongst the 50 most popular YouTube videos eg. 'football', 'ellen'.."
-                searchResultOptions={{ showAvatar: true, searchResultTitleKey: "snippet.title", searchResultImageUrl: "snippet.thumbnails.default.url", searchResultMatchKeys: { "snippet.channelTitle": "Channel Title", "snippet.tags": "Tags", "snippet.description": "Description" } }}
+                searchResultOptions={searchResultOptions}
             />
         );
     }

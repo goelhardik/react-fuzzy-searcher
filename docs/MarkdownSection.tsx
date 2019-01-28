@@ -34,7 +34,7 @@ class MarkdownSection extends React.Component<IMarkdownSectionProps, IMarkdownSe
         const { expanded } = this.state;
 
         return (
-            <ExpansionPanel expanded={expanded} onChange={this.handleChange}>
+            <ExpansionPanel expanded={expanded} onChange={this.handleChange} CollapseProps={{timeout: 100}}>
                 <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
                     {!this.state.expanded && <Typography className={classes.sectionHeading}>{section.title}</Typography>}
                 </ExpansionPanelSummary>

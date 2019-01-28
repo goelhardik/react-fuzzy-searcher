@@ -46,9 +46,10 @@ const styles = (theme: Theme) => createStyles({
         marginLeft: "30px",
         marginTop: "0"
     },
-    searchBox: {
+    searchBoxDemo: {
         width: "75%",
-        justifySelf: "center"
+        justifySelf: "center",
+        border: "1px solid grey"
     },
     documentation: {
         width: "100%",
@@ -104,7 +105,7 @@ class SearchBoxDemo extends React.Component<ISearchBoxDemoProps, ISearchBoxDemoS
                             rows={10}
                         />
                     )}
-                    <div className={classes.searchBox}>
+                    <div className={classes.searchBoxDemo}>
                         {this.renderSearchBox()}
                     </div>
                 </div>

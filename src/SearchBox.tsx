@@ -6,7 +6,7 @@ import SearchIcon from "@material-ui/icons/Search";
 import * as Fuse from "fuse.js";
 import SearchDropdown from "./SearchDropdown";
 import { ISearchResultOptions } from "./SearchResult";
-var colors = require("./Common.scss");
+// var colors = require("./Common.scss");
 
 const styles = (theme: Theme) => createStyles({
     root: {
@@ -16,7 +16,7 @@ const styles = (theme: Theme) => createStyles({
     search: {
         position: "relative",
         borderRadius: theme.shape.borderRadius,
-        border: `1px solid ${colors.placeholderGray}`,
+        // border: `1px solid ${fade(theme.palette.common.white, 2.5)}`,
         backgroundColor: fade(theme.palette.common.white, 0.15),
         "&:hover": {
             backgroundColor: fade(theme.palette.common.white, 0.25),
@@ -32,7 +32,7 @@ const styles = (theme: Theme) => createStyles({
     },
     searchIcon: {
         pointerEvents: "none",
-        color: "#828785"
+        // color: "#828785"
     },
     inputRoot: {
         color: "inherit",
@@ -53,7 +53,7 @@ const styles = (theme: Theme) => createStyles({
     searchResultCount: {
         marginRight: "10px",
         fontStyle: "italic",
-        color: colors.placeholderGray,
+        // color: colors.placeholderGray,
         fontFamily: "Georgia, Helvetica, Tahoma, Sans-Serif, Gaura Times, Serif"
     }
 });
@@ -91,7 +91,8 @@ class SearchBox extends React.Component<ISearchBoxProps<any>, ISearchBoxState> {
             <div className={classes.root}>
                 <div className={classes.search} ref={node => this.anchorEl = node}>
                     <div className={classes.searchIcon}>
-                        <SearchIcon />
+                        <SearchIcon 
+                        color="default" />
                     </div>
                     <InputBase
                         placeholder={this.props.placeholder || ""}
@@ -103,7 +104,7 @@ class SearchBox extends React.Component<ISearchBoxProps<any>, ISearchBoxState> {
                         onKeyDown={this.search}
                         onMouseDown={this.search}
                     />
-                    {!this.props.hideSearchResultCount && <Typography component="p" className={classes.searchResultCount}>
+                    {!this.props.hideSearchResultCount && <Typography component="p" className={classes.searchResultCount} color="inherit">
                         {`${this.state.searchResults.length} results`}
                     </Typography>}
                 </div>

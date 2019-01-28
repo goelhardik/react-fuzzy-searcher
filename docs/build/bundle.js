@@ -14383,8 +14383,7 @@ var styles = function (theme) { return styles_1.createStyles({
     },
     searchBox: {
         width: "75%",
-        justifySelf: "center",
-        marginRight: "30px"
+        justifySelf: "center"
     },
     documentation: {
         width: "100%",
@@ -41964,8 +41963,8 @@ var SearchBox = /** @class */ (function (_super) {
     SearchBox.prototype.render = function () {
         var _this = this;
         var classes = this.props.classes;
-        return (React.createElement("div", { className: classes.root, ref: function (node) { return _this.anchorEl = node; } },
-            React.createElement("div", { className: classes.search },
+        return (React.createElement("div", { className: classes.root },
+            React.createElement("div", { className: classes.search, ref: function (node) { return _this.anchorEl = node; } },
                 React.createElement("div", { className: classes.searchIcon },
                     React.createElement(Search_1.default, null)),
                 React.createElement(core_1.InputBase, { placeholder: this.props.placeholder || "", classes: {
@@ -43105,7 +43104,7 @@ var SearchDropdown = /** @class */ (function (_super) {
         };
         _this.renderMenuItemWithLink = function (fuseResult, idx) {
             var classes = _this.props.classes;
-            return React.createElement(core_1.MenuItem, { onClick: function (event) { return _this.handleMenuItemClick(fuseResult, idx, event); }, classes: {
+            return React.createElement(core_1.MenuItem, { onClick: function (event) { return _this.props.handleDropdownClose(event); }, classes: {
                     root: classes.menuItem
                 }, component: function (_a) {
                     var innerRef = _a.innerRef, props = __rest(_a, ["innerRef"]);
@@ -43774,7 +43773,7 @@ var MarkdownSection = /** @class */ (function (_super) {
             });
         };
         _this.state = {
-            expanded: true
+            expanded: false
         };
         return _this;
     }

@@ -25,7 +25,7 @@ class MarkdownSection extends React.Component<IMarkdownSectionProps, IMarkdownSe
     constructor(props: IMarkdownSectionProps) {
         super(props);
         this.state = {
-            expanded: true
+            expanded: false
         };
     }
 

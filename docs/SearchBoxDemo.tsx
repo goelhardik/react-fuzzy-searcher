@@ -48,8 +48,7 @@ const styles = (theme: Theme) => createStyles({
     },
     searchBox: {
         width: "75%",
-        justifySelf: "center",
-        marginRight: "30px"
+        justifySelf: "center"
     },
     documentation: {
         width: "100%",

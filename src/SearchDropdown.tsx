@@ -126,7 +126,7 @@ class SearchDropdown extends React.Component<ISearchDropdownProps, ISearchDropdo
         const { classes } = this.props;
 
         return <MenuItem
-            onClick={(event: any) => this.handleMenuItemClick(fuseResult, idx, event)}
+            onClick={(event: any) => this.props.handleDropdownClose(event)}
             classes={{
                 root: classes.menuItem
             }}

@@ -88,8 +88,8 @@ class SearchBox extends React.Component<ISearchBoxProps<any>, ISearchBoxState> {
         const { classes } = this.props;
 
         return (
-            <div className={classes.root} ref={node => this.anchorEl = node}>
-                <div className={classes.search}>
+            <div className={classes.root}>
+                <div className={classes.search} ref={node => this.anchorEl = node}>
                     <div className={classes.searchIcon}>
                         <SearchIcon />
                     </div>

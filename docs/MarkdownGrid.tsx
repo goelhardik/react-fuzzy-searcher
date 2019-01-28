@@ -3,6 +3,7 @@ import { withStyles, Theme, createStyles, WithStyles } from "@material-ui/core/s
 import { Button, Paper } from "@material-ui/core";
 import "./MarkdownGrid.css";
 import "./solarized-light.css";
+import MarkdownSection from "./MarkdownSection";
 
 // var colors = require("./Common.scss");
 var hljs = require('highlight.js');
@@ -75,7 +76,7 @@ const styles = (theme: Theme) => createStyles({
         fontWeight: 350,
         textTransform: "capitalize",
         padding: "10px"
-    },
+    }
 });
 
 export interface IMarkdownGridSection {
@@ -120,11 +121,17 @@ class MarkdownGrid extends React.Component<IMarkdownGridProps, {}> {
 
         return <div className={classes.contentContainer}>
             {sections.map((s: IMarkdownGridSection, idx: number) => {
-                return <div dangerouslySetInnerHTML={{ __html: md.render(s.content) }} />;
+                var html = md.render(s.content);
+                console.log("HTML", typeof html);
+                return <MarkdownSection
+                    section={{
+                        title: s.title,
+                        content: md.render(s.content)
+                    }}
+                />;
             })}
         </div>
     }
-
 }
 
 export default (withStyles(styles)(MarkdownGrid));

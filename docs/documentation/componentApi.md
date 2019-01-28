@@ -11,6 +11,8 @@ Provide `searchData` which is the data on which search will be performed. Pass i
 
 > Add an `onClick` method to each item, if you want to control what happens when user clicks on this item (when/if it is presented in the search results dropdown). If not, `react-fuzzy-searcher` will expect `onClick` property to be a `string` and will use a `Link` react component with property `to` pointing to this string. So when user clicks on this search result, they will be redirected to that path. Also, remember to use the `Router` component in your app at a parent level, because `Link` cannot be used outside of `Router`. 
 
+> Add an `onRender` method to each item, if you want to render the search result yourself. If any of the items has this `onRender` property set, that method will be called when this item is rendered as a search result in the dropdown. If not specified, the default rendering will be done.
+
 A sample list:
 ```json
 [

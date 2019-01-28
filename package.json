@@ -1,6 +1,6 @@
 {
     "name": "react-fuzzy-searcher",
-    "version": "1.0.4",
+    "version": "1.0.5",
     "description": "React component for fuzzy searching using fuse.js for the search",
     "scripts": {
         "build": "node scripts/build.js",

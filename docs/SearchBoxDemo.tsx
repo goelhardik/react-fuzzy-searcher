@@ -4,7 +4,10 @@ import { Typography, TextField } from "@material-ui/core";
 import SearchBox from "../src/SearchBox";
 import MarkdownViewer from "./MarkdownViewer";
 
-var sampleData = require("./data/sampleData.json");
+var otherSampleData = require("./data/otherSampleData.json");
+otherSampleData = JSON.stringify(otherSampleData, undefined, 4);
+
+var youtubeSampleData = require("./data/youtubeSampleData.json");
 
 const styles = (theme: Theme) => createStyles({
     root: {
@@ -30,16 +33,28 @@ const styles = (theme: Theme) => createStyles({
         fontSize: "30px",
         marginTop: "20px",
         lineHeight: 1.3,
-        width: "700px"
+        maxWidth: "75%",
+        marginLeft: "auto",
+        marginRight: "auto"
     },
     githubStarButton: {
         margin: "20px"
     },
+    youtubeSearchBoxDemo: {
+        width: "75%",
+        justifySelf: "center",
+        border: "1px solid grey",
+        height: "min-content",
+        marginTop: "20px",
+        marginLeft: "auto",
+        marginRight: "auto",
+        marginBottom: "60px"
+    },
     content: {
         width: "100%",
         display: "grid",
-        gridTemplateColumns: "1fr",
-        gridColumnGap: "30px",
+        gridTemplateColumns: "1fr 1fr",
+        gridColumnGap: "20px",
         marginTop: "20px"
     },
     textField: {
@@ -47,9 +62,11 @@ const styles = (theme: Theme) => createStyles({
         marginTop: "0"
     },
     searchBoxDemo: {
-        width: "75%",
+        width: "100%",
         justifySelf: "center",
-        border: "1px solid grey"
+        border: "1px solid grey",
+        height: "min-content",
+        marginRight: "20px"
     },
     documentation: {
         width: "100%",
@@ -69,7 +86,7 @@ class SearchBoxDemo extends React.Component<ISearchBoxDemoProps, ISearchBoxDemoS
     constructor(props: ISearchBoxDemoProps) {
         super(props);
         this.state = {
-            searchableData: JSON.stringify(sampleData)
+            searchableData: otherSampleData
         }
     }
 
@@ -91,11 +108,20 @@ class SearchBoxDemo extends React.Component<ISearchBoxDemoProps, ISearchBoxDemoS
                         </div>
                     </div>
                 </div>
+                <Typography variant="h2" className={classes.subtitle}>
+                    Check out a demo against some pre-programmed YouTube video data...
+                </Typography>
+                <div className={classes.youtubeSearchBoxDemo}>
+                    {this.renderYouTubeSearchBox()}
+                </div>
+                <Typography variant="h2" className={classes.subtitle}>
+                    ...or try your own input data
+                </Typography>
                 <div className={classes.content}>
-                    {false && (
+                    {true && (
                         <TextField
                             id="input-list"
-                            label="Input list to search on"
+                            label="Enter your own input list to search on (must be a valid json array)"
                             multiline
                             value={this.state.searchableData}
                             onChange={this.handleSearchableDataChange}
@@ -116,22 +142,21 @@ class SearchBoxDemo extends React.Component<ISearchBoxDemoProps, ISearchBoxDemoS
         );
     }
 
-    private renderSearchBox = () => {
+    private renderYouTubeSearchBox = () => {
         const fuseOptions = {
-            keys: getSearchKeys(),
+            keys: getYoutubeSearchKeys(),
             includeMatches: true,
             includeScore: true,
             threshold: 0.5
         };
-        sampleData = sampleData.map((d: any, idx: number) => {
+        youtubeSampleData = youtubeSampleData.map((d: any, idx: number) => {
             d.onClick = () => console.log("Clicked");
             return d;
         });
-
         return (
             <SearchBox
                 fuseOptions={fuseOptions}
-                searchData={sampleData}
+                searchData={youtubeSampleData}
                 placeholder="Search amongst the 50 most popular YouTube videos eg. 'football', 'ellen'.."
                 searchResultOptions={{
                     showAvatar: true,
@@ -147,6 +172,39 @@ class SearchBoxDemo extends React.Component<ISearchBoxDemoProps, ISearchBoxDemoS
         );
     }
 
+    private renderSearchBox = () => {
+        const fuseOptions = {
+            keys: getOtherDataSearchKeys(),
+            includeMatches: true,
+            includeScore: true,
+            threshold: 0.5
+        };
+        var userInputData;
+        try {
+            userInputData = JSON.parse(this.state.searchableData).map((d: any, idx: number) => {
+                d.onClick = () => console.log("Clicked");
+                return d;
+            });
+        } finally {
+            return (
+                <SearchBox
+                    fuseOptions={fuseOptions}
+                    searchData={userInputData}
+                    placeholder="Search on your own input on the left..."
+                    searchResultOptions={{
+                        showAvatar: false,
+                        searchResultTitleKey: "title",
+                        searchResultImageUrl: "snippet.thumbnails.default.url",
+                        searchResultMatchKeys: {
+                            "title": "Title",
+                            "author.lastName": "Author Last Name"
+                        }
+                    }}
+                />
+            );
+        }
+    }
+
     private handleSearchableDataChange = (event: any) => {
         this.setState({
             searchableData: event.target.value
@@ -155,7 +213,21 @@ class SearchBoxDemo extends React.Component<ISearchBoxDemoProps, ISearchBoxDemoS
 }
 
 
-export function getSearchKeys() {
+
+export function getOtherDataSearchKeys() {
+    return [
+        {
+            name: "title",
+            weight: 0.5
+        },
+        {
+            name: "author.lastName",
+            weight: 0.3
+        }
+    ];
+}
+
+export function getYoutubeSearchKeys() {
     return [
         {
             name: "snippet.channelTitle",

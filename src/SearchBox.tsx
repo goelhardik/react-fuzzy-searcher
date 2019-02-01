@@ -48,7 +48,8 @@ const styles = (theme: Theme) => createStyles({
         fontFamily: "Georgia, Helvetica, Tahoma, Sans-Serif, Gaura Times, Serif",
         fontSize: "1.1rem",
         // fontFamily: '"Roboto", "Helvetica", "Arial", sans - serif',
-        fontWeight: 350
+        fontWeight: 350,
+        overflowWrap: "break-word"
     },
     searchResultCount: {
         marginRight: "10px",

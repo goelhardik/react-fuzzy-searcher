@@ -11,5 +11,5 @@ export interface ISearchBoxProps<T> extends WithStyles<typeof styles> {
     searchResultOptions?: ISearchResultOptions;
     hideSearchResultCount?: boolean;
 }
-declare const _default: React.ComponentType<Pick<ISearchBoxProps<any>, "fuseOptions" | "searchData" | "maxDropdownHeight" | "placeholder" | "searchResultOptions" | "hideSearchResultCount"> & import("@material-ui/core").StyledComponentProps<"root" | "search" | "searchIcon" | "inputRoot" | "inputInput" | "searchResultCount">>;
+declare const _default: React.ComponentType<Pick<ISearchBoxProps<any>, "placeholder" | "fuseOptions" | "searchData" | "maxDropdownHeight" | "searchResultOptions" | "hideSearchResultCount"> & import("@material-ui/core").StyledComponentProps<"root" | "search" | "searchIcon" | "inputRoot" | "inputInput" | "searchResultCount">>;
 export default _default;

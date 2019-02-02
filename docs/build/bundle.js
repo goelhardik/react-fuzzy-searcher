@@ -11775,7 +11775,7 @@ var styles = function (theme) { return styles_1.createStyles({
         gridTemplateRows: "min-content",
     },
     contentContainer: {
-        overflowY: "scroll",
+        overflowY: "auto",
         maxHeight: "--webkit-fill-available"
     },
     content: {

@@ -62,7 +62,7 @@ const styles = (theme: Theme) => createStyles({
         gridTemplateRows: "min-content",
     },
     contentContainer: {
-        overflowY: "scroll",
+        overflowY: "auto",
         maxHeight: "--webkit-fill-available"
     },
     content: {

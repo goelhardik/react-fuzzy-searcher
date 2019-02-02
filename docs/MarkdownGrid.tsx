@@ -1,6 +1,6 @@
 import * as React from "react";
 import { withStyles, Theme, createStyles, WithStyles } from "@material-ui/core/styles";
-import { Button, Paper } from "@material-ui/core";
+import { Paper } from "@material-ui/core";
 import "./MarkdownGrid.css";
 import "./solarized-light.css";
 import MarkdownSection from "./MarkdownSection";
@@ -45,14 +45,15 @@ var md = new Remarkable('full', {
 
 const styles = (theme: Theme) => createStyles({
     root: {
-        margin: "auto",
+        // margin: "auto",
         textAlign: "left",
-        fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
-        padding: "20px"
+        // fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
+        // padding: "20px"
     },
     paperContainer: {
         // backgroundColor: colors.backgroundGray
-        marginBottom: "20px"
+        marginBottom: "20px",
+        textAlign: "left"
     },
     sidebar: {
         height: "min-content",
@@ -80,54 +81,56 @@ const styles = (theme: Theme) => createStyles({
 });
 
 export interface IMarkdownGridSection {
-    title: string;
+    title?: string;
     content: string;
 }
 
 export interface IMarkdownGridProps extends WithStyles<typeof styles> {
     sections: IMarkdownGridSection[];
+    usePaper?: boolean;
+    usePanel?: boolean;
 }
 
 class MarkdownGrid extends React.Component<IMarkdownGridProps, {}> {
 
     public render() {
         const { classes } = this.props;
-        // const bottom = <iframe src="https://ghbtns.com/github-btn.html?user=goelhardik&repo=react-fuzzy-searcher&type=star&count=true&size=large" scrolling="0" width="160px" height="30px" frameBorder="0" />;
 
         return (
-            <Paper elevation={4} className={classes.paperContainer}>
+            this.props.usePaper ?
+                <Paper elevation={4} className={classes.paperContainer}>
+                    {this.renderContent()}
+                </Paper>
+                :
                 <div className={classes.root}>
-                    {false && this.renderSidebar()}
                     {this.renderContent()}
                 </div>
-            </Paper>
         );
     }
 
-    private renderSidebar = () => {
-        const { classes, sections } = this.props;
+    // private renderSidebar = () => {
+    //     const { classes, sections } = this.props;
 
-        return <div className={classes.sidebar}>
-            {sections.map((s: IMarkdownGridSection, idx: number) => {
-                return <Button href={`#${s.title}`} className={classes.button}>
-                    {`${idx + 1}. ${s.title}`}
-                </Button>;
-            })}
-        </div>
-    }
+    //     return <div className={classes.sidebar}>
+    //         {sections.map((s: IMarkdownGridSection, idx: number) => {
+    //             return <Button href={`#${s.title}`} className={classes.button}>
+    //                 {`${idx + 1}. ${s.title}`}
+    //             </Button>;
+    //         })}
+    //     </div>
+    // }
 
     private renderContent = () => {
         const { classes, sections } = this.props;
 
         return <div className={classes.contentContainer}>
             {sections.map((s: IMarkdownGridSection, idx: number) => {
-                var html = md.render(s.content);
-                console.log("HTML", typeof html);
                 return <MarkdownSection
                     section={{
                         title: s.title,
                         content: md.render(s.content)
                     }}
+                    usePanel={this.props.usePanel}
                 />;
             })}
         </div>

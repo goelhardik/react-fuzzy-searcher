@@ -14,6 +14,7 @@ const styles = (theme: Theme) => createStyles({
 
 export interface IMarkdownSectionProps extends WithStyles<typeof styles> {
     section: IMarkdownGridSection;
+    usePanel?: boolean;
 }
 
 interface IMarkdownSectionState {
@@ -25,7 +26,7 @@ class MarkdownSection extends React.Component<IMarkdownSectionProps, IMarkdownSe
     constructor(props: IMarkdownSectionProps) {
         super(props);
         this.state = {
-            expanded: false
+            expanded: props.section.title ? false : true
         };
     }
 
@@ -34,16 +35,25 @@ class MarkdownSection extends React.Component<IMarkdownSectionProps, IMarkdownSe
         const { expanded } = this.state;
 
         return (
-            <ExpansionPanel expanded={expanded} onChange={this.handleChange} CollapseProps={{timeout: 100}}>
-                <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-                    {!this.state.expanded && <Typography className={classes.sectionHeading}>{section.title}</Typography>}
-                </ExpansionPanelSummary>
-                <ExpansionPanelDetails>
+            this.props.usePanel ?
+                <ExpansionPanel expanded={expanded} onChange={this.handleChange} CollapseProps={{ timeout: 100 }}>
+                    {section.title &&
+                        <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+                            {!this.state.expanded && <Typography className={classes.sectionHeading}>{section.title}</Typography>}
+                        </ExpansionPanelSummary>
+                    }
+                    <ExpansionPanelDetails>
+                        <Typography>
+                            <div dangerouslySetInnerHTML={{ __html: section.content }} />
+                        </Typography>
+                    </ExpansionPanelDetails>
+                </ExpansionPanel>
+                :
+                <div>
                     <Typography>
                         <div dangerouslySetInnerHTML={{ __html: section.content }} />
                     </Typography>
-                </ExpansionPanelDetails>
-            </ExpansionPanel>
+                </div>
         );
     }
 

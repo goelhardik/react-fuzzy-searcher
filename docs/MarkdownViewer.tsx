@@ -41,6 +41,8 @@ class MarkdownViewer extends React.Component<IMarkdownViewerProps, {}> {
                         content: markdowns.componentApi
                     }
                 ]}
+                usePaper={true}
+                usePanel={true}
             />
         </div>
     }

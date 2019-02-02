@@ -1,8 +1,9 @@
 import * as React from "react";
 import { withStyles, Theme, createStyles, WithStyles } from "@material-ui/core/styles";
-import { Typography, TextField } from "@material-ui/core";
+import { Typography, Divider } from "@material-ui/core";
 import SearchBox from "../src/SearchBox";
 import MarkdownViewer from "./MarkdownViewer";
+import CustomInputDemo from "./CustomInputDemo";
 
 var otherSampleData = require("./data/otherSampleData.json");
 otherSampleData = JSON.stringify(otherSampleData, undefined, 4);
@@ -15,7 +16,8 @@ const styles = (theme: Theme) => createStyles({
         textAlign: "center",
         fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
         paddingBottom: "20px",
-        height: "100%"
+        height: "100%",
+        marginBottom: "100px"
     },
     headerSection: {
         height: "400px",
@@ -31,7 +33,7 @@ const styles = (theme: Theme) => createStyles({
     },
     subtitle: {
         fontSize: "30px",
-        marginTop: "20px",
+        marginTop: "30px",
         lineHeight: 1.3,
         maxWidth: "75%",
         marginLeft: "auto",
@@ -61,13 +63,6 @@ const styles = (theme: Theme) => createStyles({
         marginLeft: "30px",
         marginTop: "0"
     },
-    searchBoxDemo: {
-        width: "100%",
-        justifySelf: "center",
-        border: "1px solid grey",
-        height: "min-content",
-        marginRight: "20px"
-    },
     documentation: {
         width: "100%",
         display: "block",
@@ -77,18 +72,7 @@ const styles = (theme: Theme) => createStyles({
 export interface ISearchBoxDemoProps extends WithStyles<typeof styles> {
 }
 
-interface ISearchBoxDemoState {
-    searchableData: string;
-}
-
-class SearchBoxDemo extends React.Component<ISearchBoxDemoProps, ISearchBoxDemoState> {
-
-    constructor(props: ISearchBoxDemoProps) {
-        super(props);
-        this.state = {
-            searchableData: otherSampleData
-        }
-    }
+class SearchBoxDemo extends React.Component<ISearchBoxDemoProps, {}> {
 
     public render() {
         const { classes } = this.props;
@@ -114,27 +98,12 @@ class SearchBoxDemo extends React.Component<ISearchBoxDemoProps, ISearchBoxDemoS
                 <div className={classes.youtubeSearchBoxDemo}>
                     {this.renderYouTubeSearchBox()}
                 </div>
+                <Divider variant="middle" />
+                <CustomInputDemo />
+                <Divider variant="middle" />
                 <Typography variant="h2" className={classes.subtitle}>
-                    ...or try your own input data
+                    Documentation / Usage / API
                 </Typography>
-                <div className={classes.content}>
-                    {true && (
-                        <TextField
-                            id="input-list"
-                            label="Enter your own input list to search on (must be a valid json array)"
-                            multiline
-                            value={this.state.searchableData}
-                            onChange={this.handleSearchableDataChange}
-                            className={classes.textField}
-                            margin="normal"
-                            variant="outlined"
-                            rows={10}
-                        />
-                    )}
-                    <div className={classes.searchBoxDemo}>
-                        {this.renderSearchBox()}
-                    </div>
-                </div>
                 {true && <div className={classes.documentation}>
                     <MarkdownViewer />
                 </div>}
@@ -171,60 +140,6 @@ class SearchBoxDemo extends React.Component<ISearchBoxDemoProps, ISearchBoxDemoS
             />
         );
     }
-
-    private renderSearchBox = () => {
-        const fuseOptions = {
-            keys: getOtherDataSearchKeys(),
-            includeMatches: true,
-            includeScore: true,
-            threshold: 0.5
-        };
-        var userInputData;
-        try {
-            userInputData = JSON.parse(this.state.searchableData).map((d: any, idx: number) => {
-                d.onClick = () => console.log("Clicked");
-                return d;
-            });
-        } finally {
-            return (
-                <SearchBox
-                    fuseOptions={fuseOptions}
-                    searchData={userInputData}
-                    placeholder="Search on your own input on the left..."
-                    searchResultOptions={{
-                        showAvatar: false,
-                        searchResultTitleKey: "title",
-                        searchResultImageUrl: "snippet.thumbnails.default.url",
-                        searchResultMatchKeys: {
-                            "title": "Title",
-                            "author.lastName": "Author Last Name"
-                        }
-                    }}
-                />
-            );
-        }
-    }
-
-    private handleSearchableDataChange = (event: any) => {
-        this.setState({
-            searchableData: event.target.value
-        })
-    }
-}
-
-
-
-export function getOtherDataSearchKeys() {
-    return [
-        {
-            name: "title",
-            weight: 0.5
-        },
-        {
-            name: "author.lastName",
-            weight: 0.3
-        }
-    ];
 }
 
 export function getYoutubeSearchKeys() {

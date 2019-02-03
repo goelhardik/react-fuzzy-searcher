@@ -74490,7 +74490,21 @@ var CustomInputDemo = /** @class */ (function (_super) {
             return React.createElement("div", { className: classes.settingsPane },
                 _this.renderAvatarCheckbox(),
                 React.createElement(core_1.Divider, { variant: "middle", className: classes.divider }),
-                _this.renderSearchKeysTextbox());
+                _this.renderSearchKeysTextbox(),
+                React.createElement(core_1.Divider, { variant: "middle", className: classes.divider }),
+                _this.renderSearchResultMatchKeysTextbox());
+        };
+        _this.renderSearchResultMatchKeysTextbox = function () {
+            var classes = _this.props.classes;
+            return React.createElement("div", null,
+                React.createElement(core_1.Typography, { variant: "h3", className: classes.settingTitle }, "Dropdown Search Result Match Keys"),
+                React.createElement(core_1.TextField, { id: "search-result-match-key-list", label: "Enter search result display keys", multiline: true, value: _this.state.searchResultMatchKeys, onChange: _this.handleSearchResultMatchKeysChange, className: classes.searchKeysSetting, margin: "normal", variant: "outlined" }),
+                React.createElement("div", { className: classes.settingSubtitle },
+                    React.createElement(MarkdownGrid_1.default, { sections: [
+                            {
+                                content: "This is a JSON which represents a map of object keys to their display names. When matches are displayed in the dropdown, the keys that have been matched will be displayed with the custom name provided here. If not provided, no key is displayed."
+                            }
+                        ] })));
         };
         _this.renderSearchKeysTextbox = function () {
             var classes = _this.props.classes;
@@ -74517,28 +74531,28 @@ var CustomInputDemo = /** @class */ (function (_super) {
                         ] })));
         };
         _this.renderSearchBox = function () {
-            var fuseOptions = {
-                keys: JSON.parse(_this.state.searchKeys),
-                includeMatches: true,
-                includeScore: true,
-                threshold: 0.5
-            };
             var userInputData;
+            var searchKeys;
+            var searchResultMatchKeys;
             try {
                 userInputData = JSON.parse(_this.state.searchableData).map(function (d, idx) {
                     d.onClick = function () { return console.log("Clicked"); };
                     return d;
                 });
+                searchKeys = JSON.parse(_this.state.searchKeys);
+                searchResultMatchKeys = JSON.parse(_this.state.searchResultMatchKeys);
             }
             finally {
+                var fuseOptions = {
+                    keys: searchKeys,
+                    includeMatches: true,
+                    includeScore: true,
+                    threshold: 0.5
+                };
                 return (React.createElement(SearchBox_1.default, { fuseOptions: fuseOptions, searchData: userInputData, placeholder: "Search on your own input on the left...", searchResultOptions: {
                         showAvatar: _this.state.showAvatar,
                         searchResultTitleKey: "title",
-                        // searchResultImageUrl: "snippet.thumbnails.default.url",
-                        searchResultMatchKeys: {
-                            "title": "Title",
-                            "author.lastName": "Author Last Name"
-                        }
+                        searchResultMatchKeys: searchResultMatchKeys
                     } }));
             }
         };
@@ -74557,10 +74571,16 @@ var CustomInputDemo = /** @class */ (function (_super) {
                 searchKeys: event.target.value
             });
         };
+        _this.handleSearchResultMatchKeysChange = function (event) {
+            _this.setState({
+                searchResultMatchKeys: event.target.value
+            });
+        };
         _this.state = {
             searchableData: otherSampleData,
             showAvatar: false,
-            searchKeys: getOtherDataSearchKeys()
+            searchKeys: getOtherDataSearchKeys(),
+            searchResultMatchKeys: getSearchResultMatchKeys()
         };
         return _this;
     }
@@ -74584,6 +74604,13 @@ var CustomInputDemo = /** @class */ (function (_super) {
     };
     return CustomInputDemo;
 }(React.Component));
+function getSearchResultMatchKeys() {
+    return JSON.stringify({
+        "title": "Title",
+        "author.lastName": "Author Last Name"
+    }, undefined, 4);
+}
+exports.getSearchResultMatchKeys = getSearchResultMatchKeys;
 function getOtherDataSearchKeys() {
     return '["title", "author.lastName"]';
 }

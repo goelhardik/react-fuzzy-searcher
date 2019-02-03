@@ -80,6 +80,7 @@ interface ICustomInputDemoState {
     searchableData: string;
     showAvatar: boolean;
     searchKeys: string;
+    searchResultMatchKeys: string;
 }
 
 class CustomInputDemo extends React.Component<ICustomInputDemoProps, ICustomInputDemoState> {
@@ -89,7 +90,8 @@ class CustomInputDemo extends React.Component<ICustomInputDemoProps, ICustomInpu
         this.state = {
             searchableData: otherSampleData,
             showAvatar: false,
-            searchKeys: getOtherDataSearchKeys()
+            searchKeys: getOtherDataSearchKeys(),
+            searchResultMatchKeys: getSearchResultMatchKeys()
         }
     }
 
@@ -147,7 +149,38 @@ class CustomInputDemo extends React.Component<ICustomInputDemoProps, ICustomInpu
             {this.renderAvatarCheckbox()}
             <Divider variant="middle" className={classes.divider} />
             {this.renderSearchKeysTextbox()}
+            <Divider variant="middle" className={classes.divider} />
+            {this.renderSearchResultMatchKeysTextbox()}
         </div>
+    }
+
+    private renderSearchResultMatchKeysTextbox = () => {
+        const { classes } = this.props;
+
+        return <div>
+            <Typography variant="h3" className={classes.settingTitle}>
+                Dropdown Search Result Match Keys
+            </Typography>
+            <TextField
+                id="search-result-match-key-list"
+                label="Enter search result display keys"
+                multiline
+                value={this.state.searchResultMatchKeys}
+                onChange={this.handleSearchResultMatchKeysChange}
+                className={classes.searchKeysSetting}
+                margin="normal"
+                variant="outlined"
+            />
+            <div className={classes.settingSubtitle}>
+                <MarkdownGrid
+                    sections={[
+                        {
+                            content: "This is a JSON which represents a map of object keys to their display names. When matches are displayed in the dropdown, the keys that have been matched will be displayed with the custom name provided here. If not provided, no key is displayed."
+                        }
+                    ]}
+                />
+            </div>
+        </div>;
     }
 
     private renderSearchKeysTextbox = () => {
@@ -211,19 +244,24 @@ class CustomInputDemo extends React.Component<ICustomInputDemoProps, ICustomInpu
     }
 
     private renderSearchBox = () => {
-        const fuseOptions = {
-            keys: JSON.parse(this.state.searchKeys),
-            includeMatches: true,
-            includeScore: true,
-            threshold: 0.5
-        };
         var userInputData;
+        var searchKeys;
+        var searchResultMatchKeys;
         try {
             userInputData = JSON.parse(this.state.searchableData).map((d: any, idx: number) => {
                 d.onClick = () => console.log("Clicked");
                 return d;
             });
+            searchKeys = JSON.parse(this.state.searchKeys);
+            searchResultMatchKeys = JSON.parse(this.state.searchResultMatchKeys);
         } finally {
+            const fuseOptions = {
+                keys: searchKeys,
+                includeMatches: true,
+                includeScore: true,
+                threshold: 0.5
+            };
+
             return (
                 <SearchBox
                     fuseOptions={fuseOptions}
@@ -232,11 +270,7 @@ class CustomInputDemo extends React.Component<ICustomInputDemoProps, ICustomInpu
                     searchResultOptions={{
                         showAvatar: this.state.showAvatar,
                         searchResultTitleKey: "title",
-                        // searchResultImageUrl: "snippet.thumbnails.default.url",
-                        searchResultMatchKeys: {
-                            "title": "Title",
-                            "author.lastName": "Author Last Name"
-                        }
+                        searchResultMatchKeys: searchResultMatchKeys
                     }}
                 />
             );
@@ -260,6 +294,19 @@ class CustomInputDemo extends React.Component<ICustomInputDemoProps, ICustomInpu
             searchKeys: event.target.value
         })
     }
+
+    private handleSearchResultMatchKeysChange = (event: any) => {
+        this.setState({
+            searchResultMatchKeys: event.target.value
+        })
+    }
+}
+
+export function getSearchResultMatchKeys() {
+    return JSON.stringify({
+        "title": "Title",
+        "author.lastName": "Author Last Name"
+    }, undefined, 4);
 }
 
 export function getOtherDataSearchKeys() {

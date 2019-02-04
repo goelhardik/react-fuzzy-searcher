@@ -79,6 +79,11 @@
         "fuse.js": "^3.3.0",
         "react-router-dom": "^4.3.1"
     },
+    "files": [
+        "lib/**/*",
+        "LICENSE",
+        "README.md"
+    ],
     "typings": "lib/index.d.ts",
     "main": "lib/react-fuzzy-searcher.js",
     "browserslist": [

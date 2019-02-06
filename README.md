@@ -2,7 +2,7 @@
 
 React fuzzy searcher using fuse.js
 
-![](http://www.giphy.com/gifs/3iBecxBP6QMEMVHC10)
+![](https://media.giphy.com/media/3iBecxBP6QMEMVHC10/giphy.gif)
 
 See [live demo](https://goelhardik.github.io/react-fuzzy-searcher/)
 
